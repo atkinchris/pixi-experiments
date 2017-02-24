@@ -22,6 +22,10 @@ const config = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: 'babel-loader',
+    }, {
+      test: /\.(frag|vert)$/,
+      exclude: /node_modules/,
+      use: 'raw-loader',
     }],
   },
   plugins: [

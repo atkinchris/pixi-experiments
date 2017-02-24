@@ -2,6 +2,9 @@
   "env": {
     "browser": true
   },
+  "globals": {
+    "PIXI": false
+  },
   "extends": "airbnb-base",
   "rules": {
     "semi": ["error", "never"]
