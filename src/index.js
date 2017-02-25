@@ -1,44 +1,112 @@
 import 'pixi.js'
-import shader from './shader.frag'
+// import LightSpriteRenderer from './LightSpriteRenderer'
+import { AmbientLight, DirectionalLight, PointLight } from './lights'
 
-const { WebGLRenderer, Container, loader, Sprite } = PIXI
-const width = 300
-const height = 225
+const viewWidth = 1024
+const viewHeight = 512
 
-const renderer = new WebGLRenderer(width, height)
+const renderer = new PIXI.WebGLRenderer(viewWidth, viewHeight)
+
 document.body.appendChild(renderer.view)
 
-const stage = new Container()
-const uniforms = {
-  mouse: { type: 'v2', value: { x: 0, y: 0 } },
-  time: { type: 'f', value: 0 },
-  resolution: { type: 'v2', value: { x: width, y: height } },
-}
-const simpleShader = new PIXI.Filter('', shader, uniforms)
+const stage = new PIXI.Container()
+// const stats = new Stats()
 
-loader.baseUrl = 'assets'
-loader.add('rock', 'rock.png')
+const lightHeight = 90
+const allLights = []
 
-loader.load((ldr, resources) => {
-  const road = new Sprite(resources.rock.texture)
-
-  // road.filters = [simpleShader]
-  road.x = renderer.width / 2
-  road.y = renderer.height / 2
-  road.anchor.x = 0.5
-  road.anchor.y = 0.5
-
-  stage.addChild(road)
+const amLight = new AmbientLight({
+  color: 0x555555,
+  brightness: 0.6,
 })
 
-function animate() {
-  requestAnimationFrame(animate)
-  renderer.render(stage)
-  simpleShader.uniforms.time += 0.1
-}
-animate()
+const dirLight = new DirectionalLight({
+  color: 0xffdd66,
+  brightness: 1,
+  ambientColor: 0x555555,
+  ambientBrightness: 0.6,
+  position: {
+    x: 0,
+    y: 0,
+    z: lightHeight,
+  },
+  target: {
+    x: 0,
+    y: 0,
+    z: 0,
+  },
+})
 
-document.onmousemove = function (evt) {
-  simpleShader.uniforms.mouse.x = evt.clientX
-  simpleShader.uniforms.mouse.y = evt.clientY
+const mouseLight = new PointLight({
+  color: 0xffffff,
+  brightness: 4,
+  position: {
+    x: viewWidth / 2,
+    y: viewHeight / 2,
+    z: lightHeight,
+  },
+})
+
+allLights.push(amLight)
+allLights.push(dirLight)
+allLights.push(mouseLight)
+
+
+function createClickLight(x, y) {
+  const clickLight = new PointLight({
+    color: 0xee3311,
+    brightness: 8,
+    falloff: [0.3, 6, 60],
+    position: {
+      x,
+      y,
+      z: lightHeight,
+    },
+  })
+  allLights.push(clickLight)
 }
+
+// stats.domElement.style.position = 'absolute'
+// stats.domElement.style.left = '0px'
+// stats.domElement.style.top = '0px'
+// document.body.appendChild(stats.domElement)
+
+function animate() {
+  // requestAnimationFrame(animate)
+  // stats.begin()
+  renderer.render(stage)
+  // stats.end()
+}
+
+function onLoad(loader, res) {
+  const rock = new PIXI.Sprite(res.rock_diffuse.texture)
+
+  rock.position.set(640, 280)
+  rock.scale.set(0.5, 0.5)
+
+  rock.normalTexture = res.rock_normal.texture
+  rock.pluginName = 'lightSprite'
+  rock.lights = allLights
+
+  stage.addChild(rock)
+
+  // canvas.addEventListener('mousemove', (e) => {
+  //   const rect = e.target.getBoundingClientRect()
+  //
+  //   mouseLight.position.x = e.clientX - rect.left
+  //   mouseLight.position.y = e.clientY - rect.top
+  // })
+  //
+  // canvas.addEventListener('click', (e) => {
+  //   const rect = e.target.getBoundingClientRect()
+  //
+  //   createClickLight(e.clientX - rect.left, e.clientY - rect.top)
+  // })
+
+  animate()
+}
+
+PIXI.loader
+    .add('rock_diffuse', 'assets/rock.png')
+    .add('rock_normal', 'assets/rock_normal.png')
+    .load(onLoad)

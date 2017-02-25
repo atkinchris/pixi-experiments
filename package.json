@@ -19,6 +19,8 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "glslify": "^6.0.1",
+    "pixi-gl-core": "^1.1.0",
     "pixi.js": "^4.3.5"
   }
 }
