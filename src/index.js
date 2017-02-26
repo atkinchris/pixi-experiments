@@ -1,7 +1,7 @@
 import 'pixi.js'
 import Stats from 'stats.js'
 import './LightSpriteRenderer'
-import { DirectionalLight, PointLight } from './lights'
+import { AmbientLight, PointLight } from './lights'
 
 const viewWidth = 1024
 const viewHeight = 512
@@ -10,7 +10,7 @@ const renderer = new PIXI.WebGLRenderer(viewWidth, viewHeight)
 
 document.body.appendChild(renderer.view)
 
-let rock
+let car
 
 const stage = new PIXI.Container()
 const stats = new Stats()
@@ -18,27 +18,27 @@ const stats = new Stats()
 const lightHeight = 150
 const allLights = []
 
-// const amLight = new AmbientLight({
-//   color: 0x555555,
-//   brightness: 0.6,
-// })
-
-const dirLight = new DirectionalLight({
-  color: 0xffdd66,
-  brightness: 1,
-  ambientColor: 0x555555,
-  ambientBrightness: 0.6,
-  position: {
-    x: 300,
-    y: 0,
-    z: lightHeight,
-  },
-  target: {
-    x: 300,
-    y: 700,
-    z: 0,
-  },
+const amLight = new AmbientLight({
+  color: 0x555555,
+  brightness: 0.6,
 })
+
+// const dirLight = new DirectionalLight({
+//   color: 0xffdd66,
+//   brightness: 1,
+//   ambientColor: 0x555555,
+//   ambientBrightness: 0.6,
+//   position: {
+//     x: 300,
+//     y: 0,
+//     z: lightHeight,
+//   },
+//   target: {
+//     x: 300,
+//     y: 700,
+//     z: 0,
+//   },
+// })
 
 const mouseLight = new PointLight({
   color: 0xffffff,
@@ -50,8 +50,8 @@ const mouseLight = new PointLight({
   },
 })
 
-// allLights.push(amLight)
-allLights.push(dirLight)
+allLights.push(amLight)
+// allLights.push(dirLight)
 allLights.push(mouseLight)
 
 
@@ -77,22 +77,22 @@ document.body.appendChild(stats.domElement)
 function animate() {
   requestAnimationFrame(animate)
   stats.begin()
-  // rock.rotation += 0.005
+  // car.rotation += 0.005
   renderer.render(stage)
   stats.end()
 }
 
 function onLoad(loader, res) {
-  rock = new PIXI.Sprite(res.rock_diffuse.texture)
+  car = new PIXI.Sprite(res.car_diffuse.texture)
 
-  rock.position.set(viewWidth / 2, viewHeight / 2)
-  rock.anchor.set(0.5)
+  car.position.set(viewWidth / 2, viewHeight / 2)
+  car.anchor.set(0.5)
 
-  rock.normalTexture = res.rock_normal.texture
-  rock.pluginName = 'lightSprite'
-  rock.lights = allLights
+  car.normalTexture = res.car_normal.texture
+  car.pluginName = 'lightSprite'
+  car.lights = allLights
 
-  stage.addChild(rock)
+  stage.addChild(car)
 
   renderer.view.addEventListener('mousemove', (e) => {
     const rect = e.target.getBoundingClientRect()
@@ -111,6 +111,6 @@ function onLoad(loader, res) {
 }
 
 PIXI.loader
-    .add('rock_diffuse', 'assets/rock.png')
-    .add('rock_normal', 'assets/rock_normal.png')
+    .add('car_diffuse', 'assets/car.png')
+    .add('car_normal', 'assets/car_normal.png')
     .load(onLoad)
