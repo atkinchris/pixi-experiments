@@ -1,3 +1,5 @@
+import vertexShader from '../common/shader.vert'
+
 const { Shader, BLEND_MODES } = PIXI
 
 export default class Light {
@@ -77,7 +79,7 @@ export default class Light {
   }
 
   generateShader(gl) {
-    const vertexSrc = this.getVertexSource()
+    const vertexSrc = vertexShader
     let fragmentSrc = this.getFragmentSource()
 
     // Default Red hasn't flipped. invertRed means DO flipped.

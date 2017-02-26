@@ -1,7 +1,7 @@
 import 'pixi.js'
 import Stats from 'stats.js'
 import './LightSpriteRenderer'
-import { PointLight } from './lights'
+import { DirectionalLight, PointLight } from './lights'
 
 const viewWidth = 1024
 const viewHeight = 512
@@ -23,6 +23,23 @@ const allLights = []
 //   brightness: 0.6,
 // })
 
+const dirLight = new DirectionalLight({
+  color: 0xffdd66,
+  brightness: 1,
+  ambientColor: 0x555555,
+  ambientBrightness: 0.6,
+  position: {
+    x: 300,
+    y: 0,
+    z: lightHeight,
+  },
+  target: {
+    x: 300,
+    y: 700,
+    z: 0,
+  },
+})
+
 const mouseLight = new PointLight({
   color: 0xffffff,
   brightness: 4,
@@ -34,7 +51,7 @@ const mouseLight = new PointLight({
 })
 
 // allLights.push(amLight)
-// allLights.push(dirLight)
+allLights.push(dirLight)
 allLights.push(mouseLight)
 
 
@@ -60,7 +77,7 @@ document.body.appendChild(stats.domElement)
 function animate() {
   requestAnimationFrame(animate)
   stats.begin()
-  rock.rotation += 0.005
+  // rock.rotation += 0.005
   renderer.render(stage)
   stats.end()
 }

@@ -1,5 +1,4 @@
 import LightWithAmbient from '../light/LightWithAmbient'
-import vertSrc from './point.vert'
 import fragSrc from './point.frag'
 
 export default class PointLight extends LightWithAmbient {
@@ -9,10 +8,6 @@ export default class PointLight extends LightWithAmbient {
     this.radius = options.radius || Infinity
 
     this.shaderName = 'pointLightShader'
-  }
-
-  getVertexSource() {
-    return vertSrc
   }
 
   getFragmentSource() {

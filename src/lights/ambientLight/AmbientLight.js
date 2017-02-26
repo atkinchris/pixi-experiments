@@ -1,5 +1,4 @@
 import Light from '../light/Light'
-import vertSrc from './ambient.vert'
 import fragSrc from './ambient.frag'
 
 const { BLEND_MODES } = PIXI
@@ -18,10 +17,6 @@ export default class AmbientLight extends Light {
     this.blendMode = BLEND_MODES.NORMAL
 
     this.shaderName = 'ambientLightShader'
-  }
-
-  getVertexSource() {
-    return vertSrc
   }
 
   getFragmentSource() {

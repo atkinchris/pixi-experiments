@@ -1,5 +1,4 @@
 import LightWithAmbient from '../light/LightWithAmbient'
-import vertSrc from './directional.vert'
 import fragSrc from './directional.frag'
 
 export default class DirectionalLight extends LightWithAmbient {
@@ -19,10 +18,6 @@ export default class DirectionalLight extends LightWithAmbient {
     this.updateDirection()
 
     this.shaderName = 'directionalLightShader'
-  }
-
-  getVertexSource() {
-    return vertSrc
   }
 
   getFragmentSource() {

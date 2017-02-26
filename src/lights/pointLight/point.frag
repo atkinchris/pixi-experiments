@@ -15,12 +15,11 @@ uniform vec2 uViewSize;
 uniform mat3 uWorldMatrix;
 uniform bool uFixedNormal;
 
-
-varying float flippedY;
-
 uniform vec3 uAmbientColor;
 uniform vec3 uLightPosition;
 uniform float uLightRadius;
+
+varying float flippedY;
 
 void main() {
 
