@@ -25,10 +25,7 @@ const config = {
     }, {
       test: /\.(frag|vert|glsl)$/,
       exclude: /node_modules/,
-      use: [
-        'raw-loader',
-        'glslify-loader',
-      ],
+      use: 'raw-loader',
     }],
   },
   plugins: [

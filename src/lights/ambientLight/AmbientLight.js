@@ -1,5 +1,6 @@
-import glslify from 'glslify'
 import Light from '../light/Light'
+import vertSrc from './ambient.vert'
+import fragSrc from './ambient.frag'
 
 const { BLEND_MODES } = PIXI
 
@@ -20,14 +21,10 @@ export default class AmbientLight extends Light {
   }
 
   getVertexSource() {
-    const vertexSrc = glslify('./ambient.vert')
-
-    return vertexSrc
+    return vertSrc
   }
 
   getFragmentSource() {
-    const fragmentSrc = glslify('./ambient.frag')
-
-    return fragmentSrc
+    return fragSrc
   }
 }

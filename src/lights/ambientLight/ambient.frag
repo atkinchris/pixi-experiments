@@ -1,11 +1,36 @@
+uniform sampler2D uSampler;
+uniform sampler2D uNormalSampler;
 
-#pragma glslify: import("../_shared/commonHead.frag.glsl");
+// light color, has multiplied bright for intensity.
+uniform vec3 uLightColor;
 
-void main(void)
-{
+// light attenuation coefficients (constant, linear, quadratic)
+uniform vec3 uLightFalloff;
 
-#pragma glslify: import("../_shared/loadDiffuse.glsl");
-#pragma glslify: import("../_shared/loadNormal.glsl");
+varying vec2 vTextureCoord;
+varying vec2 vNormalTextureCoord;
+
+uniform vec2 uViewSize;
+
+uniform mat3 uWorldMatrix;
+uniform bool uFixedNormal;
+
+
+void main(void) {
+
+    vec4 diffuseColor = texture2D(uSampler, vTextureCoord);
+
+    // bail out early when diffuse has no data
+    if (diffuseColor.a == 0.0) {
+       discard;
+    }
+    vec4 normalColor = texture2D(uNormalSampler, vNormalTextureCoord);
+
+    // Red layer is X coords.
+    // normalColor.r = 1.0 - normalColor.r;
+
+    // Green layer is flipped Y coords.
+    normalColor.g = 1.0 - normalColor.g;
 
     uViewSize;
 
@@ -14,7 +39,14 @@ void main(void)
     // compute Distance
     float D = 1.0;
 
-#pragma glslify: import("../_shared/computeNormal.glsl");
+    // normalize vectors
+    vec3 N;
+    if (uFixedNormal) {
+        N = normalize(normalColor.xyz * 2.0 - 1.0);
+    } else {
+        vec3 normal3 = vec3(normalColor.xyz * 2.0 - 1.0);
+        N = normalize(vec3((uWorldMatrix * vec3(normal3.xy, 0.0)).xy , normal3.z));
+    }
 
     vec3 L = vec3(1.0, 1.0, 1.0);
 

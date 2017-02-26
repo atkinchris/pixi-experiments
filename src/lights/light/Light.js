@@ -19,27 +19,27 @@ export default class Light {
     }
     this.positionArray = new Float32Array(3)
 
-        // x + y * D + z * D * D
+    // x + y * D + z * D * D
     this.falloff = new Float32Array(options.falloff || [0.75, 3, 20])
 
-        // color and brightness are exposed through setters
+    // color and brightness are exposed through setters
     this.colorArray = new Float32Array([0, 0, 0])
     this._color = 0x555555
     this._brightness = 1
     this._colorRgb = new Float32Array([0.33, 0.33, 0.33])
 
-        // run the color setter
+    // run the color setter
     if ('color' in options) {
       this.color = options.color
     }
 
-        // run the brightness setter
+    // run the brightness setter
     if ('brightness' in options) {
       this.brightness = options.brightness
     }
 
-        // Default false for the SpriteIlluminator.
-        // If use Photoshop , set to true.
+    // Default false for the SpriteIlluminator.
+    // If use Photoshop , set to true.
     this.invertRed = false
     if ('invertRed' in options) {
       this.invertRed = options.invertRed
@@ -57,7 +57,7 @@ export default class Light {
 
     this.blendMode = BLEND_MODES.ADD
 
-        // TODO : disable Light
+    // TODO : disable Light
     this.visible = false
 
     this.shaderName = null
@@ -104,14 +104,6 @@ export default class Light {
 
     return shader
   }
-
-  // getVertexSource() {
-  //       // TODO
-  // }
-  //
-  // getFragmentSource() {
-  //       // TODO
-  // }
 
   updateColor() {
     const arr = this.colorArray

@@ -1,4 +1,3 @@
-import glslify from 'glslify'
 import LightWithAmbient from '../light/LightWithAmbient'
 import vertSrc from './point.vert'
 import fragSrc from './point.frag'
@@ -13,15 +12,11 @@ export default class PointLight extends LightWithAmbient {
   }
 
   getVertexSource() {
-    const vertexSrc = glslify(vertSrc)
-
-    return vertexSrc
+    return vertSrc
   }
 
   getFragmentSource() {
-    const fragmentSrc = glslify(fragSrc)
-
-    return fragmentSrc
+    return fragSrc
   }
 
   syncShader(sprite) {

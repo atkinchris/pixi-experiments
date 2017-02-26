@@ -1,5 +1,6 @@
-import glCore from 'pixi-gl-core'
 import createIndicesForQuads from './utils/createIndicesForQuads'
+
+const { glCore } = PIXI
 
 /**
  * Helper class to create a quad

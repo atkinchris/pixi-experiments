@@ -1,7 +1,7 @@
 import 'pixi.js'
 import Stats from 'stats.js'
-import LightSpriteRenderer from './LightSpriteRenderer'
-import { AmbientLight, DirectionalLight, PointLight } from './lights'
+import './LightSpriteRenderer'
+import { PointLight } from './lights'
 
 const viewWidth = 1024
 const viewHeight = 512
@@ -9,6 +9,8 @@ const viewHeight = 512
 const renderer = new PIXI.WebGLRenderer(viewWidth, viewHeight)
 
 document.body.appendChild(renderer.view)
+
+let rock
 
 const stage = new PIXI.Container()
 const stats = new Stats()
@@ -20,23 +22,6 @@ const allLights = []
 //   color: 0x555555,
 //   brightness: 0.6,
 // })
-
-const dirLight = new DirectionalLight({
-  color: 0xffdd66,
-  brightness: 1,
-  ambientColor: 0x555555,
-  ambientBrightness: 0.6,
-  position: {
-    x: 0,
-    y: 0,
-    z: lightHeight,
-  },
-  target: {
-    x: 0,
-    y: 0,
-    z: 0,
-  },
-})
 
 const mouseLight = new PointLight({
   color: 0xffffff,
@@ -65,7 +50,6 @@ function createClickLight(x, y) {
     },
   })
   allLights.push(clickLight)
-  console.log(allLights.length)
 }
 
 stats.domElement.style.position = 'absolute'
@@ -76,14 +60,16 @@ document.body.appendChild(stats.domElement)
 function animate() {
   requestAnimationFrame(animate)
   stats.begin()
+  rock.rotation += 0.005
   renderer.render(stage)
   stats.end()
 }
 
 function onLoad(loader, res) {
-  const rock = new PIXI.Sprite(res.rock_diffuse.texture)
+  rock = new PIXI.Sprite(res.rock_diffuse.texture)
 
   rock.position.set(viewWidth / 2, viewHeight / 2)
+  rock.anchor.set(0.5)
 
   rock.normalTexture = res.rock_normal.texture
   rock.pluginName = 'lightSprite'
