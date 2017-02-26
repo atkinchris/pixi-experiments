@@ -1,17 +1,16 @@
 import 'pixi.js'
 import Stats from 'stats.js'
 import './LightSpriteRenderer'
-import { AmbientLight, PointLight } from './lights'
+import { DirectionalLight, AmbientLight, PointLight } from './lights'
 
-const viewWidth = 1024
-const viewHeight = 512
+const viewWidth = window.innerWidth
+const viewHeight = window.innerHeight
 
 const renderer = new PIXI.WebGLRenderer(viewWidth, viewHeight)
 
 document.body.appendChild(renderer.view)
 
-let car
-
+const carContainer = new PIXI.Container()
 const stage = new PIXI.Container()
 const stats = new Stats()
 
@@ -52,7 +51,7 @@ const mouseLight = new PointLight({
 
 allLights.push(amLight)
 // allLights.push(dirLight)
-allLights.push(mouseLight)
+// allLights.push(mouseLight)
 
 
 function createClickLight(x, y) {
@@ -77,22 +76,44 @@ document.body.appendChild(stats.domElement)
 function animate() {
   requestAnimationFrame(animate)
   stats.begin()
-  // car.rotation += 0.005
+  // carContainer.rotation += 0.005
   renderer.render(stage)
   stats.end()
 }
 
 function onLoad(loader, res) {
-  car = new PIXI.Sprite(res.car_diffuse.texture)
+  const car = new PIXI.Sprite(res.car_diffuse.texture)
 
-  car.position.set(viewWidth / 2, viewHeight / 2)
-  car.anchor.set(0.5)
+  carContainer.position.set(viewWidth / 2, viewHeight / 2)
+  carContainer.pivot = new PIXI.Point(41, 101)
 
   car.normalTexture = res.car_normal.texture
   car.pluginName = 'lightSprite'
   car.lights = allLights
 
-  stage.addChild(car)
+  const leftHeadlight = new DirectionalLight({
+    color: 0xffdd66,
+    brightness: 1,
+    ambientColor: 0x555555,
+    ambientBrightness: 0.6,
+    position: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    target: {
+      x: 300,
+      y: 700,
+      z: 0,
+    },
+  })
+
+  allLights.push(leftHeadlight)
+
+  carContainer.addChild(car)
+  carContainer.addChild(leftHeadlight)
+
+  stage.addChild(carContainer)
 
   renderer.view.addEventListener('mousemove', (e) => {
     const rect = e.target.getBoundingClientRect()

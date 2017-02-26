@@ -1,9 +1,10 @@
 import vertexShader from '../common/shader.vert'
 
-const { Shader, BLEND_MODES } = PIXI
+const { Shader, BLEND_MODES, DisplayObject } = PIXI
 
-export default class Light {
+export default class Light extends DisplayObject {
   constructor(options = {}) {
+    super()
     // this.height = options.height || 0.45;
     this.position = options.position || {
       x: 0,
