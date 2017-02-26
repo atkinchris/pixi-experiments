@@ -23,9 +23,12 @@ const config = {
       exclude: /node_modules/,
       use: 'babel-loader',
     }, {
-      test: /\.(frag|vert)$/,
+      test: /\.(frag|vert|glsl)$/,
       exclude: /node_modules/,
-      use: 'raw-loader',
+      use: [
+        'raw-loader',
+        'glslify-loader',
+      ],
     }],
   },
   plugins: [

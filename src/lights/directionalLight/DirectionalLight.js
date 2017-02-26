@@ -1,62 +1,48 @@
-import LightWithAmbient from '../light/LightWithAmbient';
+import LightWithAmbient from '../light/LightWithAmbient'
+import vertSrc from './directional.vert'
+import fragSrc from './directional.frag'
 
-// @see https://github.com/substack/brfs/issues/25
-const glslify = require('glslify'); // eslint-disable-line no-undef
+export default class DirectionalLight extends LightWithAmbient {
+  constructor(options = {}) {
+    super(options)
 
-export default class DirectionalLight extends LightWithAmbient
-{
-    constructor(options)
-    {
-        options = options || {};
-
-        super(options);
-
-        this.target = options.target || {
-            x: 0,
-            y: 0,
-        };
-
-        if (!('z' in this.target))
-        {
-            this.target.z = 10;
-        }
-
-        this.directionArray = new Float32Array(3);
-        this.updateDirection();
-
-        this.shaderName = 'directionalLightShader';
+    this.target = options.target || {
+      x: 0,
+      y: 0,
     }
 
-    getVertexSource()
-    {
-        const vertexSrc = glslify('./directional.vert');
-
-        return vertexSrc;
+    if (!('z' in this.target)) {
+      this.target.z = 10
     }
 
-    getFragmentSource()
-    {
-        const fragmentSrc = glslify('./directional.frag');
+    this.directionArray = new Float32Array(3)
+    this.updateDirection()
 
-        return fragmentSrc;
-    }
+    this.shaderName = 'directionalLightShader'
+  }
 
-    updateDirection()
-    {
-        const arr = this.directionArray;
-        const tx = this.target.x;
-        const ty = this.target.y;
-        const tz = this.target.z;
+  getVertexSource() {
+    return vertSrc
+  }
 
-        arr[0] = this.position.x - tx;
-        arr[1] = this.position.y - ty;
-        arr[2] = this.position.z - tz;
-    }
+  getFragmentSource() {
+    return fragSrc
+  }
 
-    syncShader(sprite)
-    {
-        super.syncShader(sprite);
+  updateDirection() {
+    const arr = this.directionArray
+    const tx = this.target.x
+    const ty = this.target.y
+    const tz = this.target.z
 
-        this.shader.uniforms.uLightDirection = this.directionArray;
-    }
+    arr[0] = this.position.x - tx
+    arr[1] = this.position.y - ty
+    arr[2] = this.position.z - tz
+  }
+
+  syncShader(sprite) {
+    super.syncShader(sprite)
+
+    this.shader.uniforms.uLightDirection = this.directionArray
+  }
 }

@@ -1,5 +1,7 @@
 import glslify from 'glslify'
 import LightWithAmbient from '../light/LightWithAmbient'
+import vertSrc from './point.vert'
+import fragSrc from './point.frag'
 
 export default class PointLight extends LightWithAmbient {
   constructor(options = {}) {
@@ -11,13 +13,13 @@ export default class PointLight extends LightWithAmbient {
   }
 
   getVertexSource() {
-    const vertexSrc = glslify('./point.vert')
+    const vertexSrc = glslify(vertSrc)
 
     return vertexSrc
   }
 
   getFragmentSource() {
-    const fragmentSrc = glslify('./point.frag')
+    const fragmentSrc = glslify(fragSrc)
 
     return fragmentSrc
   }
