@@ -30,24 +30,22 @@ function animate(timestamp) {
   }
 
   const minX = 0 - player.width
-  const maxX = 640 + player.width
   const minY = 0 - player.height
-  const maxY = 640 + player.height
 
   if (player.x < minX) {
     player.x = 640
   }
 
-  if (player.x > maxX) {
-    player.x = 0
+  if (player.x > 640) {
+    player.x = minX
   }
 
   if (player.y < minY) {
     player.y = 640
   }
 
-  if (player.y > maxY) {
-    player.y = 0
+  if (player.y > 640) {
+    player.y = minY
   }
 
   renderer.render(stage)
