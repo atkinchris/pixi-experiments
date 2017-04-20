@@ -21,15 +21,17 @@ function animate(timestamp) {
   const dt = 1 / (timestamp - lastTime)
   lastTime = timestamp
 
-  player.update(dt)
+  if (!isNaN(dt)) {
+    player.update(dt)
+  }
 
   renderer.render(stage)
   stats.end()
 }
 
 function onLoad() {
-  player = new Player(size / 2, size / 2)
   map = new TileMap()
+  player = new Player(32, 32, map)
 
   stage.addChild(map)
   stage.addChild(player)
