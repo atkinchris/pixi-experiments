@@ -2,3 +2,4 @@
 * Abstract moveable actor, to create a base for player and enemies.
 * Create `playerController` to remove `input` handling from player object.
 * Move to tile, get remainder; if not zero, get next tile and moveto with remainder.
+* Check if tile is portal - and if so, updaye `posX` and `posY` to portal output.
