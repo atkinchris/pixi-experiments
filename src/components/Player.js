@@ -1,5 +1,4 @@
 import setupInputHandler from '../utils/inputHandler'
-import { directionToVector } from '../utils/directions'
 import interpolate from '../utils/interpolate'
 
 class Player extends PIXI.Sprite {
@@ -17,7 +16,7 @@ class Player extends PIXI.Sprite {
     this.minY = 0 - this.height
     this.speed = 30
 
-    this.inputHandler = setupInputHandler()
+    this.getInputDirection = setupInputHandler()
   }
 
   update(dt) {
@@ -28,8 +27,7 @@ class Player extends PIXI.Sprite {
     }
 
     if (this.currentHeading.x === 0 && this.currentHeading.y === 0) {
-      const inputDirection = this.inputHandler()
-      this.currentHeading = directionToVector(inputDirection)
+      this.currentHeading = this.getInputDirection()
     }
 
     const nextTile = this.map.getNextTile(this.currentTile, this.currentHeading)
