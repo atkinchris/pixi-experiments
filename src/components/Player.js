@@ -1,6 +1,8 @@
 import setupInputHandler from '../utils/inputHandler'
 import interpolate from '../utils/interpolate'
 
+import { NONE } from '../utils/directions'
+
 class Player extends PIXI.Sprite {
   constructor(x, y, map) {
     super(PIXI.loader.resources.player.texture)
@@ -23,26 +25,30 @@ class Player extends PIXI.Sprite {
     const distance = dt * this.speed
 
     if (!this.currentTile) {
-      this.currentTile = this.map.getTile(this.posX, this.posY)
+      this.currentTile = this.map.getTile({ x: this.posX, y: this.posY })
     }
 
-    if (this.currentHeading.x === 0 && this.currentHeading.y === 0) {
+    if (this.currentHeading === NONE || this.currentTile.passable) {
       this.currentHeading = this.getInputDirection()
     }
 
-    const nextTile = this.map.getNextTile(this.currentTile, this.currentHeading)
-    const nextX = interpolate(this.posX, nextTile.x, distance)
-    const nextY = interpolate(this.posY, nextTile.y, distance)
+    const nextTile = this.map.getAdjacentTile(this.currentTile, this.currentHeading)
 
-    this.posX = nextX.value
-    this.posY = nextY.value
+    if (nextTile.passable) {
+      const nextX = interpolate(this.posX, nextTile.worldX, distance)
+      const nextY = interpolate(this.posY, nextTile.worldY, distance)
 
-    if (nextY.reached && nextX.reached) {
-      this.currentTile = nextTile
+      this.posX = nextX.value
+      this.posY = nextY.value
+
+      if (nextY.reached && nextX.reached) {
+        this.currentTile = nextTile
+        this.currentHeading = NONE
+      }
+
+      this.x = Math.round(this.posX)
+      this.y = Math.round(this.posY)
     }
-
-    this.x = Math.round(this.posX)
-    this.y = Math.round(this.posY)
   }
 }
 
