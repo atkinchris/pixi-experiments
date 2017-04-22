@@ -49,7 +49,7 @@ class Map extends PIXI.Container {
     const coordY = Math.round(y / size)
 
     return {
-      contents: this.map[coordY][coordX],
+      passable: this.map[coordY][coordX] === 0,
       x: coordX * size,
       y: coordY * size,
     }

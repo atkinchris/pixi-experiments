@@ -39,6 +39,10 @@ class Player extends PIXI.Sprite {
     this.posX = nextX.value
     this.posY = nextY.value
 
+    if (nextY.reached && nextX.reached) {
+      this.currentTile = nextTile
+    }
+
     this.x = Math.round(this.posX)
     this.y = Math.round(this.posY)
   }

@@ -1,6 +1,6 @@
 function interpolate(current, target, distance) {
   if (current === target) {
-    return { value: current, remaining: distance }
+    return { value: current, remaining: distance, reached: true }
   }
 
   const direction = current < target ? 1 : -1
@@ -10,7 +10,7 @@ function interpolate(current, target, distance) {
   return {
     value: remaining > 0 ? target : next,
     remaining: remaining > 0 ? remaining : 0,
-    reached: remaining === 0,
+    reached: remaining >= 0,
   }
 }
 

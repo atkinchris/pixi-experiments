@@ -57,4 +57,22 @@ describe('interpolate', () => {
       expect(interpolate(current, target, distance).remaining).toBe(expected)
     })
   })
+
+  it('returns "reached=true" if at target', () => {
+    const target = 13
+    const values = [
+      { current: 16, distance: 0, expected: false },
+      { current: 16, distance: 1, expected: false },
+      { current: 16, distance: 2, expected: false },
+      { current: 16, distance: 3, expected: true },
+      { current: 16, distance: 4, expected: true },
+      { current: 13, distance: 0, expected: true },
+      { current: 13, distance: 4, expected: true },
+    ]
+
+    expect.assertions(values.length)
+    values.forEach(({ current, expected, distance }) => {
+      expect(interpolate(current, target, distance).reached).toBe(expected)
+    })
+  })
 })
