@@ -46,7 +46,7 @@ describe('interpolate', () => {
       { current: 16, expected: 1 },
       { current: 15, expected: 2 },
       { current: 14, expected: 3 },
-      // { current: 13, expected: 4 },
+      { current: 13, expected: 4 },
       { current: 12, expected: 3 },
       { current: 11, expected: 2 },
       { current: 10, expected: 1 },
