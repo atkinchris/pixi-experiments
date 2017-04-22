@@ -1,10 +1,12 @@
 import setupInputHandler from '../utils/inputHandler'
 import { directionToVector } from '../utils/directions'
+import interpolate from '../utils/interpolate'
 
 class Player extends PIXI.Sprite {
   constructor(x, y, map) {
     super(PIXI.loader.resources.player.texture)
 
+    this.currentHeading = { x: 0, y: 0 }
     this.posX = x
     this.posY = y
     this.x = x
@@ -19,36 +21,26 @@ class Player extends PIXI.Sprite {
   }
 
   update(dt) {
-    const direction = this.inputHandler()
-    const heading = directionToVector(direction)
+    const distance = dt * this.speed
 
-    const newX = this.posX + (dt * this.speed * heading.x)
-    const newY = this.posY - (dt * this.speed * heading.y)
-
-    const nextTile = this.map.getTile(newX, newY)
-
-    if (nextTile === 0) {
-      this.posX = newX
-      this.posY = newY
-      this.x = Math.round(this.posX)
-      this.y = Math.round(this.posY)
+    if (!this.currentTile) {
+      this.currentTile = this.map.getTile(this.posX, this.posY)
     }
 
-    if (this.posX < this.minX) {
-      this.posX = 320
+    if (this.currentHeading.x === 0 && this.currentHeading.y === 0) {
+      const inputDirection = this.inputHandler()
+      this.currentHeading = directionToVector(inputDirection)
     }
 
-    if (this.posX > 320) {
-      this.posX = this.minX
-    }
+    const nextTile = this.map.getNextTile(this.currentTile, this.currentHeading)
+    const nextX = interpolate(this.posX, nextTile.x, distance)
+    const nextY = interpolate(this.posY, nextTile.y, distance)
 
-    if (this.posY < this.minY) {
-      this.posY = 320
-    }
+    this.posX = nextX.value
+    this.posY = nextY.value
 
-    if (this.posY > 320) {
-      this.posY = this.minY
-    }
+    this.x = Math.round(this.posX)
+    this.y = Math.round(this.posY)
   }
 }
 

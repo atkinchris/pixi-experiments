@@ -10,6 +10,7 @@ function interpolate(current, target, distance) {
   return {
     value: remaining > 0 ? target : next,
     remaining: remaining > 0 ? remaining : 0,
+    reached: remaining === 0,
   }
 }
 

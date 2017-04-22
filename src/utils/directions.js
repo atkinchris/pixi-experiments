@@ -11,9 +11,9 @@ const directionToVector = (direction = NONE) => {
     case RIGHT:
       return { x: 1, y: 0 }
     case UP:
-      return { x: 0, y: 1 }
-    case DOWN:
       return { x: 0, y: -1 }
+    case DOWN:
+      return { x: 0, y: 1 }
     case NONE:
     default:
       return { x: 0, y: 0 }
