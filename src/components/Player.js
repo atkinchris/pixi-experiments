@@ -5,7 +5,7 @@ import { NONE } from '../utils/directions'
 
 class Player extends PIXI.Sprite {
   constructor(x, y, map) {
-    super(PIXI.loader.resources.sprites.textures.player)
+    super(PIXI.loader.resources.sprites.textures['player.png'])
 
     this.currentHeading = { x: 0, y: 0 }
     this.posX = x

@@ -5,7 +5,7 @@
 		"scale": "1"
 	},
 	"frames": {
-		"corner":
+		"corner.png":
 		{
 			"frame": {"x":0,"y":0,"w":32,"h":32},
 			"rotated": false,
@@ -13,7 +13,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 			"sourceSize": {"w":32,"h":32}
 		},
-		"fourway":
+		"fourway.png":
 		{
 			"frame": {"x":32,"y":0,"w":32,"h":32},
 			"rotated": false,
@@ -21,7 +21,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 			"sourceSize": {"w":32,"h":32}
 		},
-		"player":
+		"player.png":
 		{
 			"frame": {"x":0,"y":32,"w":32,"h":32},
 			"rotated": false,
@@ -29,7 +29,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 			"sourceSize": {"w":32,"h":32}
 		},
-		"straight":
+		"straight.png":
 		{
 			"frame": {"x":32,"y":32,"w":32,"h":32},
 			"rotated": false,
@@ -37,7 +37,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 			"sourceSize": {"w":32,"h":32}
 		},
-		"tjunction":
+		"tjunction.png":
 		{
 			"frame": {"x":64,"y":0,"w":32,"h":32},
 			"rotated": false,
