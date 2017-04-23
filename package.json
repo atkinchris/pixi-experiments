@@ -10,19 +10,23 @@
     "build": "webpack",
     "stats": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json dist",
     "deploy": "gh-pages -d dist",
-    "test": "jest"
+    "test": "jest",
+    "atlas": "spritesheet-js -f pixi.js --path src/assets src/assets/sprites/*.png"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-import": "^2.2.0",
+    "file-loader": "^0.11.1",
     "gh-pages": "^0.12.0",
     "html-webpack-plugin": "^2.28.0",
     "jest": "^19.0.2",
-    "raw-loader": "^0.5.1",
+    "spritesheet-js": "^1.2.6",
     "webpack": "^2.4.1",
     "webpack-bundle-analyzer": "^2.4.0",
     "webpack-dev-server": "^2.4.2"

@@ -2,6 +2,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const paths = {
   SRC: path.resolve(__dirname, 'src'),
@@ -23,12 +24,18 @@ const config = {
       exclude: /node_modules/,
       use: 'babel-loader',
     }, {
-      test: /\.(frag|vert|glsl)$/,
+      test: /assets\/.*\.(png|json)$/,
       exclude: /node_modules/,
-      use: 'raw-loader',
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
+      }],
     }],
   },
   plugins: [
+    new CleanWebpackPlugin([paths.DEST]),
     new HtmlWebpackPlugin({ template: path.join(paths.SRC, 'index.html') }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],

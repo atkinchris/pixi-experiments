@@ -2,6 +2,7 @@ import 'pixi.js'
 import setupStats from './utils/setupStats'
 import Player from './components/Player'
 import TileMap from './components/TileMap'
+import { spritesheet } from './assets'
 
 const size = 320
 const stats = setupStats()
@@ -39,7 +40,4 @@ function onLoad() {
   animate()
 }
 
-PIXI.loader
-    .add('player', 'assets/oval.png')
-    .add('tile', 'assets/tile.png')
-    .load(onLoad)
+PIXI.loader.add('sprites', spritesheet).load(onLoad)

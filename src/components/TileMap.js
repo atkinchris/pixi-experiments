@@ -4,12 +4,12 @@ class Map extends PIXI.Container {
   constructor() {
     super()
 
-    const { texture } = PIXI.loader.resources.tile
+    const { straight } = PIXI.loader.resources.sprites.textures
 
     this.map = createTileMap()
     this.map.forEach((x, y, tile, size) => {
       if (tile === 1) {
-        const t = new PIXI.Sprite(texture)
+        const t = new PIXI.Sprite(straight)
 
         t.x = x * size
         t.y = y * size
