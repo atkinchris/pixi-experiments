@@ -6,10 +6,11 @@ import { spritesheet } from './assets'
 
 const size = 320
 const stats = setupStats()
-const renderer = new PIXI.WebGLRenderer(size, size)
-document.body.appendChild(renderer.view)
 
-const stage = new PIXI.Container()
+const app = new PIXI.Application({ width: size, height: size, transparent: true })
+const { renderer, stage } = app
+
+document.body.appendChild(renderer.view)
 
 let player
 let map
