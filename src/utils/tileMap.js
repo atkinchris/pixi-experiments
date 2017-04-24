@@ -13,9 +13,8 @@ const TEST_MAP = [
   [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
-const SIZE = 32
 
-function createTileMap(map = TEST_MAP, size = SIZE) {
+function createTileMap(map = TEST_MAP) {
   const height = map.length
   const width = map[0].length
 
@@ -44,7 +43,7 @@ function createTileMap(map = TEST_MAP, size = SIZE) {
     return getTileFromMap(x, y)
   }
 
-  const each = fn => mapObjects.map(tile => fn(tile, size))
+  const each = fn => mapObjects.map(fn)
 
   return {
     each,
