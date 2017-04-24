@@ -33,7 +33,7 @@ function animate(timestamp) {
 
 function onLoad() {
   map = new TileMap()
-  player = new Player(32, 32, map)
+  player = new Player(1, 1, map)
 
   stage.addChild(map)
   stage.addChild(player)

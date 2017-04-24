@@ -8,9 +8,11 @@ class Player extends PIXI.Sprite {
   constructor(x, y, map) {
     super(PIXI.loader.resources.sprites.textures['player.png'])
 
-    this.currentHeading = { x: 0, y: 0 }
-    this.x = x + (this.width / 2)
-    this.y = y + (this.height / 2)
+    const worldCoords = mapToWorld({ x, y })
+
+    this.currentHeading = NONE
+    this.x = worldCoords.x
+    this.y = worldCoords.y
     this.posX = this.x
     this.posY = this.y
     this.map = map
