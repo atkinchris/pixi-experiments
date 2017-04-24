@@ -16,8 +16,8 @@ class Map extends PIXI.Container {
 
         t.anchor.set(0.5, 0.5)
         t.rotation = degToRad(type.rotation)
-        t.x = tile.x * size
-        t.y = tile.y * size
+        t.x = (tile.x * size) + (size / 2)
+        t.y = (tile.y * size) + (size / 2)
 
         this.addChild(t)
       }

@@ -8,10 +8,10 @@ class Player extends PIXI.Sprite {
     super(PIXI.loader.resources.sprites.textures['player.png'])
 
     this.currentHeading = { x: 0, y: 0 }
-    this.posX = x
-    this.posY = y
-    this.x = x
-    this.y = y
+    this.x = x + (this.width / 2)
+    this.y = y + (this.height / 2)
+    this.posX = this.x
+    this.posY = this.y
     this.map = map
     this.anchor.set(0.5, 0.5)
 

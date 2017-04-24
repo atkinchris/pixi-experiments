@@ -29,8 +29,8 @@ function createTileMap(map = TEST_MAP, size = SIZE) {
 
     return {
       ...tile,
-      worldX: tile.x * size,
-      worldY: tile.y * size,
+      worldX: (tile.x * size) + (size / 2),
+      worldY: (tile.y * size) + (size / 2),
     }
   }
 
@@ -42,8 +42,8 @@ function createTileMap(map = TEST_MAP, size = SIZE) {
   }
 
   const getTileAtCoordinates = (coordinates) => {
-    const x = Math.round(coordinates.x / size)
-    const y = Math.round(coordinates.y / size)
+    const x = Math.round((coordinates.x - (size / 2)) / size)
+    const y = Math.round((coordinates.y - (size / 2)) / size)
 
     return getTileFromMap(x, y)
   }
