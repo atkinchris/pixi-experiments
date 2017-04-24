@@ -1,4 +1,5 @@
 import { convertArray, calculateAdjacents, getTile } from './mapper'
+import { worldToMap } from './coordinates'
 
 const TEST_MAP = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -27,11 +28,7 @@ function createTileMap(map = TEST_MAP, size = SIZE) {
       return { passable: false, x, y }
     }
 
-    return {
-      ...tile,
-      worldX: (tile.x * size) + (size / 2),
-      worldY: (tile.y * size) + (size / 2),
-    }
+    return tile
   }
 
   const getAdjacentTile = (target, direction) => {
@@ -42,8 +39,7 @@ function createTileMap(map = TEST_MAP, size = SIZE) {
   }
 
   const getTileAtCoordinates = (coordinates) => {
-    const x = Math.round((coordinates.x - (size / 2)) / size)
-    const y = Math.round((coordinates.y - (size / 2)) / size)
+    const { x, y } = worldToMap(coordinates)
 
     return getTileFromMap(x, y)
   }

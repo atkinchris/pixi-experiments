@@ -1,5 +1,6 @@
 import setupInputHandler from '../utils/inputHandler'
 import interpolate from '../utils/interpolate'
+import { mapToWorld } from '../utils/coordinates'
 
 import { NONE } from '../utils/directions'
 
@@ -36,8 +37,9 @@ class Player extends PIXI.Sprite {
     const nextTile = this.map.getAdjacentTile(this.currentTile, this.currentHeading)
 
     if (nextTile.passable) {
-      const nextX = interpolate(this.posX, nextTile.worldX, distance)
-      const nextY = interpolate(this.posY, nextTile.worldY, distance)
+      const coords = mapToWorld(nextTile)
+      const nextX = interpolate(this.posX, coords.x, distance)
+      const nextY = interpolate(this.posY, coords.y, distance)
 
       this.posX = nextX.value
       this.posY = nextY.value
