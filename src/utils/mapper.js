@@ -47,4 +47,5 @@ function calculateAdjacents(mapObjects) {
 export {
   convertArray,
   calculateAdjacents,
+  getTile,
 }

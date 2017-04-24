@@ -2,10 +2,10 @@ import createTileMap from '../tileMap'
 import { LEFT, RIGHT, UP, DOWN } from '../directions'
 
 const TEST_MAP = [
-  [1, 1, 1, 1],
-  [1, 0, 0, 1],
-  [1, 0, 0, 1],
-  [1, 1, 1, 1],
+  [0, 0, 0, 0],
+  [0, 1, 1, 0],
+  [0, 1, 1, 0],
+  [0, 0, 0, 0],
 ]
 
 describe('tileMap', () => {

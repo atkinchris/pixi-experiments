@@ -13,6 +13,7 @@ class Player extends PIXI.Sprite {
     this.x = x
     this.y = y
     this.map = map
+    this.anchor.set(0.5, 0.5)
 
     this.minX = 0 - this.width
     this.minY = 0 - this.height
