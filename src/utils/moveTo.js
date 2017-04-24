@@ -1,10 +1,18 @@
 import interpolate from './interpolate'
 
 function moveTo(current, target, distance) {
-  const { value: x } = interpolate(current.x, target.x, distance)
-  const { value: y } = interpolate(current.y, target.y, distance)
+  const x = interpolate(current.x, target.x, distance)
+  const y = interpolate(current.y, target.y, distance)
 
-  return { x, y, remaining: 0 }
+  return {
+    x: x.value,
+    y: y.value,
+    reached: x.reached && y.reached,
+    distance: {
+      x: x.remaining,
+      y: y.remaining,
+    },
+  }
 }
 
 export default moveTo
