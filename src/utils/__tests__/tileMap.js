@@ -1,12 +1,13 @@
 import createTileMap from '../tileMap'
+import { convertArray } from '../mapper'
 import { LEFT, RIGHT, UP, DOWN } from '../directions'
 
-const TEST_MAP = [
+const TEST_MAP = convertArray([
   [0, 0, 0, 0],
   [0, 1, 1, 0],
   [0, 1, 1, 0],
   [0, 0, 0, 0],
-]
+])
 
 describe('tileMap', () => {
   let map
@@ -26,10 +27,10 @@ describe('tileMap', () => {
     })
 
     it('returns an unpassable tile if there is no adjacent tile in the direction', () => {
-      expect(map.getAdjacentTile({ x: 0, y: 3 }, LEFT).passable).toBe(false)
-      expect(map.getAdjacentTile({ x: 3, y: 1 }, RIGHT).passable).toBe(false)
-      expect(map.getAdjacentTile({ x: 1, y: 0 }, UP).passable).toBe(false)
-      expect(map.getAdjacentTile({ x: 3, y: 3 }, DOWN).passable).toBe(false)
+      expect(map.getAdjacentTile({ x: 0, y: 3 }, LEFT)).toMatchObject({ passable: false })
+      expect(map.getAdjacentTile({ x: 3, y: 1 }, RIGHT)).toMatchObject({ passable: false })
+      expect(map.getAdjacentTile({ x: 1, y: 0 }, UP)).toMatchObject({ passable: false })
+      expect(map.getAdjacentTile({ x: 3, y: 3 }, DOWN)).toMatchObject({ passable: false })
     })
   })
 })
