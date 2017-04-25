@@ -1,32 +1,15 @@
-import setupInputHandler from '../utils/inputHandler'
-import { mapToWorld } from '../utils/coordinates'
+import { mapToWorld, worldToMap } from '../utils/coordinates'
 import moveTo from '../utils/moveTo'
 
 const SPEED = 30
 
 class Actor extends PIXI.Sprite {
-  constructor(position, map) {
+  constructor(position, getDestination) {
     super(PIXI.loader.resources.sprites.textures['player.png'])
 
+    this.getDestination = getDestination
     this.anchor.set(0.5, 0.5)
     this.updatePosition(position)
-
-    // TODO: Extract These
-    this.getInputDirection = setupInputHandler()
-    this.map = map
-  }
-
-  getDestination(position) {
-    const direction = this.getInputDirection()
-    const currentTile = this.map.getTile(position)
-    const nextTile = this.map.getAdjacentTile(currentTile, direction)
-
-    if (!nextTile.passable) {
-      return currentTile
-    }
-
-    this.currentDirection = direction
-    return nextTile
   }
 
   updatePosition({ x, y }) {
@@ -37,19 +20,12 @@ class Actor extends PIXI.Sprite {
   }
 
   update(dt) {
-    if (!this.destination) {
-      this.destination = this.getDestination({ x: this.posX, y: this.posY })
-    }
-
+    const destination = this.getDestination(worldToMap({ x: this.posX, y: this.posY }))
     const distance = dt * SPEED
     const here = { x: this.posX, y: this.posY }
-    const newPosition = moveTo(here, mapToWorld(this.destination), distance)
+    const newPosition = moveTo(here, mapToWorld(destination), distance)
 
     this.updatePosition(newPosition)
-
-    if (newPosition.reached) {
-      this.destination = undefined
-    }
   }
 }
 
