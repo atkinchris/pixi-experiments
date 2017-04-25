@@ -10,7 +10,7 @@ class Actor extends PIXI.Sprite {
     this.getDestination = getDestination
     this.anchor.set(0.5, 0.5)
     this.reached = false
-    this.updatePosition(position)
+    this.updatePosition(mapToWorld(position))
   }
 
   updatePosition({ x, y }) {

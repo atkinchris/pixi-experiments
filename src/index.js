@@ -1,9 +1,8 @@
 import 'pixi.js'
 import setupStats from './utils/setupStats'
-import Player from './components/Actor'
+import Actor from './components/Actor'
 import TileMap from './components/TileMap'
 import { spritesheet } from './assets'
-import { mapToWorld } from './utils/coordinates'
 import createHandler from './handlers/player'
 
 const size = 320
@@ -35,7 +34,9 @@ function animate(timestamp) {
 
 function onLoad() {
   map = new TileMap()
-  player = new Player(mapToWorld({ x: 1, y: 1 }), createHandler(map))
+  const playerStartPosition = { x: 1, y: 1 }
+  const playerHandler = createHandler(map, playerStartPosition)
+  player = new Actor(playerStartPosition, playerHandler)
 
   stage.addChild(map)
   stage.addChild(player)
