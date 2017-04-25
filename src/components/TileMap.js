@@ -33,7 +33,7 @@ class Map extends PIXI.Container {
   }
 
   getTile(coordinates) {
-    return this.map.getTileAtCoordinates(worldToMap(coordinates))
+    return this.map.getTile(worldToMap(coordinates))
   }
 }
 

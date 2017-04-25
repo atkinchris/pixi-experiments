@@ -17,8 +17,8 @@ describe('tileMap', () => {
   })
 
   it('gets a tile at coordinates', () => {
-    expect(map.getTile(1, 1)).toEqual({ x: 1, y: 1, passable: true })
-    expect(map.getTile(0, 1)).toEqual({ x: 0, y: 1, passable: false })
+    expect(map.getTile({ x: 1, y: 1 })).toEqual({ x: 1, y: 1, passable: true })
+    expect(map.getTile({ x: 0, y: 1 })).toEqual({ x: 0, y: 1, passable: false })
   })
 
   it('returns the adjacent tile in the direction from the passed tile', () => {
