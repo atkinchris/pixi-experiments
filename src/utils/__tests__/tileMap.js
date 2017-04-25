@@ -16,21 +16,24 @@ describe('tileMap', () => {
     map = createTileMap(TEST_MAP)
   })
 
-  describe('getAdjacentTile', () => {
-    it('returns the adjacent tile in the direction from the passed tile', () => {
-      const currentTile = { x: 1, y: 1 }
+  it('gets a tile at coordinates', () => {
+    expect(map.getTile(1, 1)).toEqual({ x: 1, y: 1, passable: true })
+    expect(map.getTile(0, 1)).toEqual({ x: 0, y: 1, passable: false })
+  })
 
-      expect(map.getAdjacentTile(currentTile, LEFT)).toMatchObject({ x: 0, y: 1, passable: false })
-      expect(map.getAdjacentTile(currentTile, RIGHT)).toMatchObject({ x: 2, y: 1, passable: true })
-      expect(map.getAdjacentTile(currentTile, UP)).toMatchObject({ x: 1, y: 0, passable: false })
-      expect(map.getAdjacentTile(currentTile, DOWN)).toMatchObject({ x: 1, y: 2, passable: true })
-    })
+  it('returns the adjacent tile in the direction from the passed tile', () => {
+    const currentTile = { x: 1, y: 1 }
 
-    it('returns an unpassable tile if there is no adjacent tile in the direction', () => {
-      expect(map.getAdjacentTile({ x: 0, y: 3 }, LEFT)).toMatchObject({ passable: false })
-      expect(map.getAdjacentTile({ x: 3, y: 1 }, RIGHT)).toMatchObject({ passable: false })
-      expect(map.getAdjacentTile({ x: 1, y: 0 }, UP)).toMatchObject({ passable: false })
-      expect(map.getAdjacentTile({ x: 3, y: 3 }, DOWN)).toMatchObject({ passable: false })
-    })
+    expect(map.getAdjacentTile(currentTile, LEFT)).toMatchObject({ x: 0, y: 1, passable: false })
+    expect(map.getAdjacentTile(currentTile, RIGHT)).toMatchObject({ x: 2, y: 1, passable: true })
+    expect(map.getAdjacentTile(currentTile, UP)).toMatchObject({ x: 1, y: 0, passable: false })
+    expect(map.getAdjacentTile(currentTile, DOWN)).toMatchObject({ x: 1, y: 2, passable: true })
+  })
+
+  it('returns an unpassable tile if there is no adjacent tile in the direction', () => {
+    expect(map.getAdjacentTile({ x: 0, y: 3 }, LEFT)).toMatchObject({ passable: false })
+    expect(map.getAdjacentTile({ x: 3, y: 1 }, RIGHT)).toMatchObject({ passable: false })
+    expect(map.getAdjacentTile({ x: 1, y: 0 }, UP)).toMatchObject({ passable: false })
+    expect(map.getAdjacentTile({ x: 3, y: 3 }, DOWN)).toMatchObject({ passable: false })
   })
 })

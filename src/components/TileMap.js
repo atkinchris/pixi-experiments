@@ -1,7 +1,7 @@
 import createTileMap from '../utils/tileMap'
 import tileTypes from '../utils/tileTypes'
 
-import { mapToWorld } from '../utils/coordinates'
+import { mapToWorld, worldToMap } from '../utils/coordinates'
 
 const degToRad = degrees => degrees * (Math.PI / 180)
 
@@ -32,8 +32,8 @@ class Map extends PIXI.Container {
     return this.map.getAdjacentTile(...args)
   }
 
-  getTile(...args) {
-    return this.map.getTileAtCoordinates(...args)
+  getTile(coordinates) {
+    return this.map.getTileAtCoordinates(worldToMap(coordinates))
   }
 }
 

@@ -8,3 +8,5 @@
 * When `reached` (at new tile) check if input direction is one of the tiles valid exits. If so, assign currentHeading.
 * Pass a `handler` to player/moveable type, call it when `reached=true`.
 * Combine `mapper` and `tileMap`.
+* Only use world coordinates in renderable components - map coordinates in all others.
+* `inputHandler` -> `stateUpdate` -> `render`
