@@ -1,8 +1,8 @@
 import createTileMap from '../tileMap'
-import { convertArray } from '../mapper'
+import arrayToMap from '../arrayToMap'
 import { LEFT, RIGHT, UP, DOWN } from '../directions'
 
-const TEST_MAP = convertArray([
+const TEST_MAP = arrayToMap([
   [0, 0, 0, 0],
   [0, 1, 1, 0],
   [0, 1, 1, 0],

@@ -1,19 +1,5 @@
 import { LEFT, RIGHT, UP, DOWN } from './directions'
 
-function convertArray(array = [[]]) {
-  const map = []
-
-  array.forEach((row, y) => {
-    row.forEach((value, x) => {
-      if (value === 1) {
-        map.push({ x, y, passable: true })
-      }
-    })
-  })
-
-  return map
-}
-
 function getTile(map, x, y) {
   return map.find(tile => tile.x === x && tile.y === y)
 }
@@ -45,7 +31,6 @@ function calculateAdjacents(mapObjects) {
 }
 
 export {
-  convertArray,
   calculateAdjacents,
   getTile,
 }

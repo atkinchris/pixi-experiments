@@ -1,4 +1,4 @@
-import { convertArray, calculateAdjacents, getTile } from '../mapper'
+import { calculateAdjacents, getTile } from '../mapper'
 
 describe('mapper', () => {
   let map
@@ -10,17 +10,6 @@ describe('mapper', () => {
       { x: 1, y: 2, passable: true },
       { x: 2, y: 2, passable: true },
     ]
-  })
-
-  it('converts an array to map objects', () => {
-    const array = [
-      [0, 0, 0, 0],
-      [0, 1, 1, 0],
-      [0, 1, 1, 0],
-      [0, 0, 0, 0],
-    ]
-
-    expect(convertArray(array)).toEqual(map)
   })
 
   it('adds adjacent tiles to the map', () => {

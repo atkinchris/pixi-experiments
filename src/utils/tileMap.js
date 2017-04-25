@@ -1,8 +1,9 @@
-import { convertArray, calculateAdjacents, getTile } from './mapper'
+import arrayToMap from './arrayToMap'
+import { calculateAdjacents, getTile } from './mapper'
 import { worldToMap } from './coordinates'
 import mapData from './map.json'
 
-const TEST_MAP = convertArray(mapData)
+const TEST_MAP = arrayToMap(mapData)
 
 function createTileMap(map = TEST_MAP) {
   const mapObjects = calculateAdjacents(map)
