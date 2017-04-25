@@ -1,19 +1,19 @@
 import setupInputHandler from '../utils/inputHandler'
-import { NONE } from '../utils/directions'
+import { NONE, isOpposite } from '../utils/directions'
 
 function createHandler(map) {
   const getInputDirection = setupInputHandler()
-  let direction = NONE
   let destination = { x: 1, y: 1 }
+  let direction = NONE
 
   return (position, reachedDestination) => {
     const inputDirection = getInputDirection()
 
-    if (direction !== inputDirection || reachedDestination) {
-      direction = inputDirection
+    if (reachedDestination || isOpposite(inputDirection, direction)) {
       const newDestination = map.getAdjacentTile(position, inputDirection)
 
-      if (newDestination.passable) {
+      if (newDestination !== destination && newDestination.passable) {
+        direction = inputDirection
         destination = newDestination
       }
     }
