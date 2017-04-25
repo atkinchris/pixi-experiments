@@ -6,17 +6,14 @@ function createHandler(map) {
   let direction = NONE
   let destination = { x: 1, y: 1 }
 
-  const hasReachedDestination = ({ x, y }) => destination.x === x && destination.y === y
-
-  return (position) => {
+  return (position, reachedDestination) => {
     const inputDirection = getInputDirection()
 
-    if (direction !== inputDirection || hasReachedDestination(position)) {
-      const currentTile = map.getTile(position)
-      const newDestination = map.getAdjacentTile(currentTile, inputDirection)
+    if (direction !== inputDirection || reachedDestination) {
+      direction = inputDirection
+      const newDestination = map.getAdjacentTile(position, inputDirection)
 
       if (newDestination.passable) {
-        direction = inputDirection
         destination = newDestination
       }
     }

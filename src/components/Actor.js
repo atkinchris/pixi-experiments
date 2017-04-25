@@ -9,6 +9,7 @@ class Actor extends PIXI.Sprite {
 
     this.getDestination = getDestination
     this.anchor.set(0.5, 0.5)
+    this.reached = false
     this.updatePosition(position)
   }
 
@@ -20,10 +21,13 @@ class Actor extends PIXI.Sprite {
   }
 
   update(dt) {
-    const destination = this.getDestination(worldToMap({ x: this.posX, y: this.posY }))
+    const mapPosition = worldToMap({ x: this.posX, y: this.posY })
+    const destination = this.getDestination(mapPosition, this.reached)
     const distance = dt * SPEED
     const here = { x: this.posX, y: this.posY }
     const newPosition = moveTo(here, mapToWorld(destination), distance)
+
+    this.reached = newPosition.reached
 
     this.updatePosition(newPosition)
   }
