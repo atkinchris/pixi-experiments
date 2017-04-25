@@ -5,7 +5,7 @@ import { mapToWorld } from '../utils/coordinates'
 import { NONE } from '../utils/directions'
 
 class Player extends PIXI.Sprite {
-  constructor(x, y, map) {
+  constructor({ x, y }, map) {
     super(PIXI.loader.resources.sprites.textures['player.png'])
 
     const worldCoords = mapToWorld({ x, y })
