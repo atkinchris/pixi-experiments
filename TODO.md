@@ -10,3 +10,4 @@
 * Combine `mapper` and `tileMap`.
 * Only use world coordinates in renderable components - map coordinates in all others.
 * `inputHandler` -> `stateUpdate` -> `render`
+* Have actor get destination on every/intermitant updates, and trust it. Allows for snap movement by player.
