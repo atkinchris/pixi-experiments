@@ -10,7 +10,8 @@
     "build": "webpack",
     "stats": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json dist",
     "deploy": "gh-pages -d dist",
-    "test": "jest",
+    "lint": "eslint .",
+    "unit": "jest",
     "atlas": "spritesheet-js -f pixi.js --path src/assets src/assets/sprites/*.png"
   },
   "devDependencies": {
