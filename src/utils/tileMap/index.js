@@ -21,6 +21,13 @@ function createTileMap(map = TEST_MAP) {
     return getTile({ x, y })
   }
 
+  function isPassable(position, direction) {
+    const tile = getTile(position)
+    const adjacent = tile.adjacent[direction.id]
+
+    return adjacent ? adjacent.passable : tile.passable
+  }
+
   function getDestination(position, currentDirection, newDirection) {
     const tile = getTile(position)
     const newDestination = tile.adjacent[newDirection.id]
@@ -45,6 +52,7 @@ function createTileMap(map = TEST_MAP) {
     getAdjacentTile,
     getDestination,
     getTile,
+    isPassable,
   }
 }
 

@@ -37,6 +37,24 @@ describe('tileMap', () => {
     expect(map.getAdjacentTile({ x: 3, y: 3 }, DOWN)).toMatchObject({ passable: false })
   })
 
+  describe('isPassable', () => {
+    it('returns "true" if the direction is passable', () => {
+      const position = { x: 1, y: 1 }
+      const direction = RIGHT
+      const passable = map.isPassable(position, direction)
+
+      expect(passable).toBe(true)
+    })
+
+    it('returns "false" if the direction is not passable', () => {
+      const position = { x: 1, y: 1 }
+      const direction = UP
+      const passable = map.isPassable(position, direction)
+
+      expect(passable).toBe(false)
+    })
+  })
+
   describe('getDestination', () => {
     it('returns the tile in the new direction, if passable', () => {
       const currentDirection = RIGHT
