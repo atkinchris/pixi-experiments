@@ -1,4 +1,4 @@
-import { LEFT, RIGHT, UP, DOWN } from './directions'
+import { LEFT, RIGHT, UP, DOWN } from '../directions'
 
 function getTile(tiles, x, y) {
   return tiles.find(t => t.x === x && t.y === y) || { passable: false, x, y }

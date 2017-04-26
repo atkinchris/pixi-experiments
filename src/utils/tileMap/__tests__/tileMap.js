@@ -1,6 +1,6 @@
-import createTileMap from '../tileMap'
+import createTileMap from '../'
 import arrayToMap from '../arrayToMap'
-import { LEFT, RIGHT, UP, DOWN } from '../directions'
+import { LEFT, RIGHT, UP, DOWN } from '../../directions'
 
 const TEST_MAP = arrayToMap([
   [0, 0, 0, 0],

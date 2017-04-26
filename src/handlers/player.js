@@ -1,4 +1,4 @@
-import setupInputHandler from '../utils/inputHandler'
+import setupInputHandler from '../utils/input'
 import { NONE, isOpposite } from '../utils/directions'
 
 function createHandler(map, initialPosition, getDirection = setupInputHandler()) {

@@ -1,15 +1,13 @@
-import createTileMap from '../utils/tileMap'
 import tileTypes from '../utils/tileTypes'
-
 import { mapToWorld } from '../utils/coordinates'
 
 const degToRad = degrees => degrees * (Math.PI / 180)
 
 class Map extends PIXI.Container {
-  constructor() {
+  constructor(map) {
     super()
 
-    this.map = createTileMap()
+    this.map = map
     this.map.each((tile) => {
       if (tile.passable) {
         const { UP, RIGHT, DOWN, LEFT } = tile.adjacent
@@ -26,14 +24,6 @@ class Map extends PIXI.Container {
         this.addChild(t)
       }
     })
-  }
-
-  getAdjacentTile(...args) {
-    return this.map.getAdjacentTile(...args)
-  }
-
-  getTile(coordinates) {
-    return this.map.getTile(coordinates)
   }
 }
 

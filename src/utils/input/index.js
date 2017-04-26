@@ -1,4 +1,4 @@
-import { NONE, LEFT, RIGHT, UP, DOWN } from './directions'
+import { NONE, LEFT, RIGHT, UP, DOWN } from '../directions'
 import bindKey from './bindKey'
 
 const KEY_MAP = [

@@ -4,6 +4,7 @@ import Actor from './components/Actor'
 import TileMap from './components/TileMap'
 import { spritesheet } from './assets'
 import createHandler from './handlers/player'
+import createTileMap from './utils/tileMap'
 
 const size = 320
 const stats = setupStats()
@@ -33,9 +34,10 @@ function animate(timestamp) {
 }
 
 function onLoad() {
-  map = new TileMap()
+  const tileMap = createTileMap()
+  map = new TileMap(tileMap)
   const playerStartPosition = { x: 1, y: 1 }
-  const playerHandler = createHandler(map, playerStartPosition)
+  const playerHandler = createHandler(tileMap, playerStartPosition)
   player = new Actor(playerStartPosition, playerHandler)
 
   stage.addChild(map)
