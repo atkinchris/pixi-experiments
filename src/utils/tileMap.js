@@ -1,5 +1,5 @@
 import arrayToMap from './arrayToMap'
-import { calculateAdjacents } from './mapper'
+import calculateAdjacents from './calculateAdjacents'
 import mapData from './map.json'
 
 const TEST_MAP = arrayToMap(mapData)
@@ -14,27 +14,28 @@ function createTileMap(map = TEST_MAP) {
     return tiles.find(t => t.x === x && t.y === y) || { passable: false, x, y }
   }
 
-  const getAdjacentTile = (target, direction) => {
+  function getAdjacentTile(target, direction) {
     const x = target.x + direction.x
     const y = target.y + direction.y
 
     return getTile({ x, y })
   }
 
-  const getDestination = (position, currentDirection, newDirection) => {
-    const newDestination = getAdjacentTile(position, newDirection)
+  function getDestination(position, currentDirection, newDirection) {
+    const tile = getTile(position)
+    const newDestination = tile.adjacent[newDirection.id]
 
     if (newDestination.passable) {
       return newDestination
     }
 
-    const nextDestination = getAdjacentTile(position, currentDirection)
+    const nextDestination = tile.adjacent[currentDirection.id]
 
     if (nextDestination.passable) {
       return nextDestination
     }
 
-    return getTile(position)
+    return tile
   }
 
   const each = fn => tiles.map(fn)

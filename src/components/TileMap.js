@@ -13,7 +13,7 @@ class Map extends PIXI.Container {
     this.map.each((tile) => {
       if (tile.passable) {
         const { UP, RIGHT, DOWN, LEFT } = tile.adjacent
-        const type = tileTypes[`${UP ? 1 : 0}${RIGHT ? 1 : 0}${DOWN ? 1 : 0}${LEFT ? 1 : 0}`]
+        const type = tileTypes[`${UP.passable ? 1 : 0}${RIGHT.passable ? 1 : 0}${DOWN.passable ? 1 : 0}${LEFT.passable ? 1 : 0}`]
         const t = PIXI.Sprite.fromFrame(`${type.tile}.png`)
 
         t.anchor.set(0.5, 0.5)
