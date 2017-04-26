@@ -11,14 +11,15 @@ function createHandler(map, initialPosition, getDirection = setupInputHandler())
     if (reachedDestination || isOpposite(newDirection, direction)) {
       const newDestination = map.getAdjacentTile(position, newDirection)
 
-      if (newDestination !== destination && newDestination.passable) {
-        direction = newDirection
+      if (newDestination && newDestination.passable) {
         destination = newDestination
-      } else {
-        const nextDestination = map.getAdjacentTile(position, direction)
-        if (nextDestination !== destination && nextDestination.passable) {
-          destination = nextDestination
-        }
+        direction = newDirection
+      }
+
+      const nextDestination = map.getAdjacentTile(position, direction)
+
+      if (nextDestination && nextDestination.passable) {
+        destination = nextDestination
       }
     }
 

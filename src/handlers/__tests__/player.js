@@ -1,5 +1,4 @@
-import arrayToMap from '../../utils/arrayToMap'
-import tileMap from '../../utils/tileMap'
+import tileMap, { arrayToMap } from '../../utils/tileMap'
 
 import createPlayerHandler from '../player'
 import { NONE, RIGHT, LEFT } from '../../utils/directions'
