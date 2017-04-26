@@ -35,5 +35,10 @@
   "dependencies": {
     "pixi.js": "^4.5.1",
     "stats.js": "^0.17.0"
+  },
+  "jest": {
+    "clearMocks": true,
+    "resetMocks": true,
+    "resetModules": true
   }
 }
