@@ -1,4 +1,4 @@
-function arrayToMap(array = [[]]) {
+function arrayToMap(array) {
   const map = []
 
   array.forEach((row, y) => {
