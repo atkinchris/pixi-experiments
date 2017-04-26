@@ -5,8 +5,13 @@ import mapData from './map.json'
 const TEST_MAP = arrayToMap(mapData)
 
 function createTileMap(map = TEST_MAP) {
-  function getTile({ x, y }) {
-    return map.find(t => t.x === x && t.y === y) || { passable: false, x, y }
+  const tiles = calculateAdjacents(map)
+
+  function getTile(coordinates) {
+    const x = Math.round(coordinates.x)
+    const y = Math.round(coordinates.y)
+
+    return tiles.find(t => t.x === x && t.y === y) || { passable: false, x, y }
   }
 
   const getAdjacentTile = (target, direction) => {
@@ -16,11 +21,28 @@ function createTileMap(map = TEST_MAP) {
     return getTile({ x, y })
   }
 
-  const each = fn => calculateAdjacents(map).map(fn)
+  const getDestination = (position, currentDirection, newDirection) => {
+    const newDestination = getAdjacentTile(position, newDirection)
+
+    if (newDestination.passable) {
+      return newDestination
+    }
+
+    const nextDestination = getAdjacentTile(position, currentDirection)
+
+    if (nextDestination.passable) {
+      return nextDestination
+    }
+
+    return getTile(position)
+  }
+
+  const each = fn => tiles.map(fn)
 
   return {
     each,
     getAdjacentTile,
+    getDestination,
     getTile,
   }
 }

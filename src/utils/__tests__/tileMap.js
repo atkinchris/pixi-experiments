@@ -17,8 +17,8 @@ describe('tileMap', () => {
   })
 
   it('gets a tile at coordinates', () => {
-    expect(map.getTile({ x: 1, y: 1 })).toEqual({ x: 1, y: 1, passable: true })
-    expect(map.getTile({ x: 0, y: 1 })).toEqual({ x: 0, y: 1, passable: false })
+    expect(map.getTile({ x: 1, y: 1 })).toMatchObject({ x: 1, y: 1, passable: true })
+    expect(map.getTile({ x: 0, y: 1 })).toMatchObject({ x: 0, y: 1, passable: false })
   })
 
   it('returns the adjacent tile in the direction from the passed tile', () => {
@@ -35,5 +35,34 @@ describe('tileMap', () => {
     expect(map.getAdjacentTile({ x: 3, y: 1 }, RIGHT)).toMatchObject({ passable: false })
     expect(map.getAdjacentTile({ x: 1, y: 0 }, UP)).toMatchObject({ passable: false })
     expect(map.getAdjacentTile({ x: 3, y: 3 }, DOWN)).toMatchObject({ passable: false })
+  })
+
+  describe('getDestination', () => {
+    it('returns the tile in the new direction, if passable', () => {
+      const currentDirection = RIGHT
+      const newDirection = DOWN
+      const position = { x: 1, y: 1 }
+      const destination = map.getDestination(position, currentDirection, newDirection)
+
+      expect(destination).toMatchObject({ x: 1, y: 2 })
+    })
+
+    it('returns the tile in the current direction, if new destination is not passable', () => {
+      const currentDirection = RIGHT
+      const newDirection = UP
+      const position = { x: 1, y: 1 }
+      const destination = map.getDestination(position, currentDirection, newDirection)
+
+      expect(destination).toMatchObject({ x: 2, y: 1 })
+    })
+
+    it('returns the current tile if neither directions are passable', () => {
+      const currentDirection = LEFT
+      const newDirection = UP
+      const position = { x: 1, y: 1 }
+      const destination = map.getDestination(position, currentDirection, newDirection)
+
+      expect(destination).toMatchObject({ x: 1, y: 1 })
+    })
   })
 })
