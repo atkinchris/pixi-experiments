@@ -2,8 +2,6 @@ import tileTypes from '../utils/tileTypes'
 import { mapToWorld } from '../utils/coordinates'
 import { LEFT, RIGHT, UP, DOWN } from '../utils/directions'
 
-const degToRad = degrees => degrees * (Math.PI / 180)
-
 class Map extends PIXI.Container {
   constructor(map) {
     super()
@@ -21,7 +19,6 @@ class Map extends PIXI.Container {
         const t = PIXI.Sprite.fromFrame(`${type.tile}.png`)
 
         t.anchor.set(0.5, 0.5)
-        t.rotation = degToRad(type.rotation)
 
         const worldCoords = mapToWorld(tile)
         t.x = worldCoords.x

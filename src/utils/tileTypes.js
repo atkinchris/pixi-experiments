@@ -4,17 +4,17 @@
 // UP LEFT DOWN RIGHT
 
 const tileTypes = {
-  '1111': { tile: 'fourway', rotation: 0 },
-  '0101': { tile: 'straight', rotation: 0 },
-  '1010': { tile: 'straight', rotation: 90 },
-  '0111': { tile: 'tjunction', rotation: 0 },
-  '1011': { tile: 'tjunction', rotation: 90 },
-  '1101': { tile: 'tjunction', rotation: 180 },
-  '1110': { tile: 'tjunction', rotation: 270 },
-  '0011': { tile: 'corner', rotation: 0 },
-  '1001': { tile: 'corner', rotation: 90 },
-  '1100': { tile: 'corner', rotation: 180 },
-  '0110': { tile: 'corner', rotation: 270 },
+  '1111': { tile: 'fourway' },
+  '0101': { tile: 'straight-1' },
+  '1010': { tile: 'straight-2' },
+  '1101': { tile: 'tjunction-1' },
+  '1110': { tile: 'tjunction-2' },
+  '0111': { tile: 'tjunction-3' },
+  '1011': { tile: 'tjunction-4' },
+  '0110': { tile: 'corner-1' },
+  '0011': { tile: 'corner-2' },
+  '1001': { tile: 'corner-3' },
+  '1100': { tile: 'corner-4' },
 }
 
 export default tileTypes
