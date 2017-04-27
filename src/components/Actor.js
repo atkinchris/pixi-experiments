@@ -1,7 +1,7 @@
 import { mapToWorld, worldToMap } from '../utils/coordinates'
 import moveTo from '../utils/moveTo'
 
-const SPEED = 30
+const SPEED = 60
 
 class Actor extends PIXI.Sprite {
   constructor(position, getDestination) {

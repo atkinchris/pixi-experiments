@@ -1,4 +1,4 @@
-const SIZE = 32
+const SIZE = 64
 const ORIGIN = 0.5
 
 function worldToMap({ x, y }) {

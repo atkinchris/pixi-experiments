@@ -6,7 +6,7 @@ import { spritesheet } from './assets'
 import createHandler from './handlers/player'
 import createTileMap from './utils/tileMap'
 
-const size = 320
+const size = 640
 const stats = setupStats()
 
 const app = new PIXI.Application({ width: size, height: size, transparent: true })
