@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 100);
@@ -41198,4 +41198,4 @@ module.exports = [
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.071f61d0e920a5716f94.js.map
+//# sourceMappingURL=main.530d175224f3477b59cf.js.map
