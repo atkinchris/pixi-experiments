@@ -16,7 +16,7 @@ const config = {
   output: {
     path: paths.DEST,
     filename: '[name].[hash].js',
-    publicPath: '/',
+    publicPath: '',
   },
   module: {
     rules: [{
