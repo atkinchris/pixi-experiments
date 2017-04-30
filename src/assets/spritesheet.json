@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"image": "spritesheet.png",
-		"size": {"w":256,"h":192},
+		"size": {"w":256,"h":256},
 		"scale": "1"
 	},
 	"frames": {
@@ -13,7 +13,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"straight-1.png":
+		"player.png":
 		{
 			"frame": {"x":0,"y":0,"w":64,"h":64},
 			"rotated": false,
@@ -37,7 +37,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"fourway.png":
+		"enemy.png":
 		{
 			"frame": {"x":128,"y":0,"w":64,"h":64},
 			"rotated": false,
@@ -45,7 +45,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"player.png":
+		"fourway.png":
 		{
 			"frame": {"x":128,"y":64,"w":64,"h":64},
 			"rotated": false,
@@ -55,13 +55,13 @@
 		},
 		"tjunction-4.png":
 		{
-			"frame": {"x":192,"y":128,"w":64,"h":64},
+			"frame": {"x":0,"y":192,"w":64,"h":64},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"straight-2.png":
+		"straight-1.png":
 		{
 			"frame": {"x":64,"y":128,"w":64,"h":64},
 			"rotated": false,
@@ -69,7 +69,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"tjunction-1.png":
+		"straight-2.png":
 		{
 			"frame": {"x":128,"y":128,"w":64,"h":64},
 			"rotated": false,
@@ -77,7 +77,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"tjunction-2.png":
+		"tjunction-1.png":
 		{
 			"frame": {"x":192,"y":0,"w":64,"h":64},
 			"rotated": false,
@@ -85,9 +85,17 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 			"sourceSize": {"w":64,"h":64}
 		},
-		"tjunction-3.png":
+		"tjunction-2.png":
 		{
 			"frame": {"x":192,"y":64,"w":64,"h":64},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+			"sourceSize": {"w":64,"h":64}
+		},
+		"tjunction-3.png":
+		{
+			"frame": {"x":192,"y":128,"w":64,"h":64},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
