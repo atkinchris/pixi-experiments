@@ -4,6 +4,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
+const { rules, alias, noParse } = require('./tools/phaser-shim')
+
 const paths = {
   SRC: path.resolve(__dirname, 'src'),
   DEST: path.resolve(__dirname, 'dist'),
@@ -19,26 +21,32 @@ const config = {
     publicPath: '',
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: 'babel-loader',
-    }, {
-      test: /assets\/.*\.(png|json)$/,
-      exclude: /node_modules/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-        },
-      }],
-    }],
+    noParse,
+    rules: [
+      ...rules,
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /assets\/.*\.(png|json)$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+          },
+        }],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin([paths.DEST]),
     new HtmlWebpackPlugin({ template: path.join(paths.SRC, 'index.html') }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
+  resolve: { alias },
   devServer: {
     historyApiFallback: true,
     inline: true,

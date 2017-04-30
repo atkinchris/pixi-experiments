@@ -1,57 +1,34 @@
-import 'pixi.js'
-import setupStats from './utils/setupStats'
-import Actor from './components/Actor'
-import TileMap from './components/TileMap'
-import { spritesheet } from './assets'
-import createHandler from './handlers/player'
-import createEnemyHandler from './handlers/enemy'
-import createTileMap from './utils/tileMap'
+import 'pixi'
+import 'p2'
+import Phaser from 'phaser'
 
-const size = 640
-const stats = setupStats()
+import { spritesheet, spritesheetImage } from './assets'
 
-const app = new PIXI.Application({ width: size, height: size, transparent: true })
-const { renderer, stage } = app
+import gameState from './states/game'
 
-document.body.appendChild(renderer.view)
+let game
 
-let player
-let enemy
-let map
-let lastTime = performance.now()
-
-function animate(timestamp) {
-  requestAnimationFrame(animate)
-  stats.begin()
-
-  const dt = 1 / (timestamp - lastTime)
-  lastTime = timestamp
-
-  if (!isNaN(dt)) {
-    player.update(dt)
-    enemy.update(dt)
-  }
-
-  renderer.render(stage)
-  stats.end()
+function preload() {
+  game.load.atlas('sprites', spritesheetImage, spritesheet)
 }
 
-function onLoad() {
-  const tileMap = createTileMap()
-  map = new TileMap(tileMap)
-  stage.addChild(map)
+function create() {
+  game.advancedTiming = true
 
-  const playerStartPosition = { x: 1, y: 1 }
-  const playerHandler = createHandler(tileMap, playerStartPosition)
-  player = new Actor('player', playerStartPosition, playerHandler)
-  stage.addChild(player)
-
-  const enemyStartPosition = { x: 8, y: 8 }
-  const enemyHander = createEnemyHandler(tileMap, enemyStartPosition, playerHandler)
-  enemy = new Actor('enemy', enemyStartPosition, enemyHander)
-  stage.addChild(enemy)
-
-  animate()
+  game.state.add('Game', gameState)
+  game.state.start('Game')
 }
 
-PIXI.loader.add('sprites', spritesheet).load(onLoad)
+const config = {
+  width: 640,
+  height: 640,
+  renderer: Phaser.AUTO,
+  antialias: false,
+  transparent: true,
+  state: {
+    preload,
+    create,
+  },
+}
+
+game = new Phaser.Game(config)

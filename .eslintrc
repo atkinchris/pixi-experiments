@@ -3,12 +3,15 @@
     "browser": true,
     "jest": true
   },
-  "globals": {
-    "PIXI": false
-  },
   "extends": "airbnb-base",
   "rules": {
-    "semi": ["error", "never"],
-    "no-underscore-dangle": "off",
+    "semi": ["error", "never"]
+  },
+  "settings": {
+    "import/core-modules": [
+      "phaser",
+      "pixi",
+      "p2"
+    ],
   }
 }

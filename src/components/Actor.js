@@ -1,11 +1,13 @@
+import Phaser from 'phaser'
+
 import { mapToWorld, worldToMap } from '../utils/coordinates'
 import moveTo from '../utils/moveTo'
 
-const SPEED = 60
+const SPEED = 200
 
-class Actor extends PIXI.Sprite {
-  constructor(name, position, handler) {
-    super(PIXI.loader.resources.sprites.textures[`${name}.png`])
+class Actor extends Phaser.Sprite {
+  constructor(game, name, position, handler) {
+    super(game, position.x, position.y, 'sprites', `${name}.png`)
 
     this.handler = handler
     this.anchor.set(0.5, 0.5)
@@ -20,7 +22,9 @@ class Actor extends PIXI.Sprite {
     this.y = Math.round(this.posY)
   }
 
-  update(dt) {
+  update() {
+    const dt = this.game.time.physicsElapsed
+
     const mapPosition = worldToMap({ x: this.posX, y: this.posY })
     const destination = this.handler.getNewDestination(mapPosition, this.reached)
     const distance = dt * SPEED
