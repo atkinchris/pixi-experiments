@@ -4,10 +4,10 @@ import moveTo from '../utils/moveTo'
 const SPEED = 60
 
 class Actor extends PIXI.Sprite {
-  constructor(position, getDestination) {
-    super(PIXI.loader.resources.sprites.textures['player.png'])
+  constructor(name, position, handler) {
+    super(PIXI.loader.resources.sprites.textures[`${name}.png`])
 
-    this.getDestination = getDestination
+    this.handler = handler
     this.anchor.set(0.5, 0.5)
     this.reached = false
     this.updatePosition(mapToWorld(position))
@@ -22,7 +22,7 @@ class Actor extends PIXI.Sprite {
 
   update(dt) {
     const mapPosition = worldToMap({ x: this.posX, y: this.posY })
-    const destination = this.getDestination(mapPosition, this.reached)
+    const destination = this.handler.getNewDestination(mapPosition, this.reached)
     const distance = dt * SPEED
     const here = { x: this.posX, y: this.posY }
     const newPosition = moveTo(here, mapToWorld(destination), distance)

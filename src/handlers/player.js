@@ -5,7 +5,7 @@ function createHandler(map, initialPosition, getDirection = setupInputHandler())
   let destination = initialPosition
   let direction = NONE
 
-  return (position, reachedDestination) => {
+  const getNewDestination = (position, reachedDestination) => {
     const newDirection = getDirection()
 
     if (reachedDestination || isOpposite(newDirection, direction)) {
@@ -24,6 +24,13 @@ function createHandler(map, initialPosition, getDirection = setupInputHandler())
     }
 
     return destination
+  }
+
+  const getCurrentDestination = () => destination
+
+  return {
+    getNewDestination,
+    getCurrentDestination,
   }
 }
 
