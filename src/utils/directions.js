@@ -5,6 +5,7 @@ const UP = { x: 0, y: -1, id: 'UP' }
 const DOWN = { x: 0, y: 1, id: 'DOWN' }
 
 const isOpposite = (a, b) => a !== NONE && b !== NONE && a.x === (b.x * -1) && a.y === (b.y * -1)
+const ALL = [LEFT, RIGHT, UP, DOWN]
 
 export {
   NONE,
@@ -12,5 +13,6 @@ export {
   RIGHT,
   UP,
   DOWN,
+  ALL,
   isOpposite,
 }

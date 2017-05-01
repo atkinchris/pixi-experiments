@@ -1,7 +1,7 @@
 import Actor from '../components/Actor'
 import drawMap from '../components/TileMap'
 import createHandler from '../handlers/player'
-import createEnemyHandler from '../handlers/enemy'
+import createEnemyHandler from '../handlers/debug'
 import createTileMap from '../utils/tileMap'
 
 function gameState(game) {

@@ -1,7 +1,7 @@
+import { ALL } from '../directions'
+
 import arrayToMap from './arrayToMap'
 import mapData from './map.json'
-
-import { LEFT, RIGHT, UP, DOWN } from '../directions'
 
 const TEST_MAP = arrayToMap(mapData)
 const impassable = ({ x, y }) => ({ x, y, passable: false, adjacents: [] })
@@ -20,22 +20,30 @@ function getAdjacentTile(map, coordinates, direction) {
   return getTile(map, { x, y })
 }
 
-function createTileMap(mapObjects = TEST_MAP) {
-  const map = mapObjects.map((tile) => {
-    const adjacents = [
-      { ...getAdjacentTile(mapObjects, tile, UP), direction: UP },
-      { ...getAdjacentTile(mapObjects, tile, LEFT), direction: LEFT },
-      { ...getAdjacentTile(mapObjects, tile, RIGHT), direction: RIGHT },
-      { ...getAdjacentTile(mapObjects, tile, DOWN), direction: DOWN },
-    ]
+function getAdjacentNode(map, coordinates, direction) {
+  let node
+  let next = impassable(coordinates)
 
-    return { ...tile, adjacents }
-  })
+  do {
+    node = next
+    next = getAdjacentTile(map, node, direction)
+  } while (next.passable)
+
+  return node
+}
+
+function createTileMap(mapObjects = TEST_MAP) {
+  const map = mapObjects.map(tile => ({
+    ...tile,
+    adjacents: ALL.map(d => ({ ...getAdjacentTile(mapObjects, tile, d), direction: d })),
+    nodes: ALL.map(d => ({ ...getAdjacentNode(mapObjects, tile, d), direction: d })).filter(({ passable }) => passable),
+  }))
 
   return {
     each: fn => map.map(fn),
     getTile: coordinates => getTile(map, coordinates),
     getAdjacentTile: (coordinates, direction) => getAdjacentTile(map, coordinates, direction),
+    getAdjacentNode: (coordinates, direction) => getAdjacentNode(map, coordinates, direction),
   }
 }
 
