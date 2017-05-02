@@ -1,5 +1,6 @@
 import { ALL } from '../directions'
 
+import { worldToMap } from '../coordinates'
 import arrayToMap from './arrayToMap'
 import mapData from './map.json'
 
@@ -11,6 +12,12 @@ function getTile(map, coordinates) {
   const y = Math.round(coordinates.y)
 
   return map.find(t => t.x === x && t.y === y) || impassable(coordinates)
+}
+
+function getTileAtWorldCoordinates(map, worldCoordinates) {
+  const coordinates = worldToMap(worldCoordinates)
+
+  return getTile(map, coordinates)
 }
 
 function getAdjacentTile(map, coordinates, direction) {
@@ -42,6 +49,7 @@ function createTileMap(mapObjects = TEST_MAP) {
   return {
     each: fn => map.map(fn),
     getTile: coordinates => getTile(map, coordinates),
+    getTileAtWorldCoordinates: coordinates => getTileAtWorldCoordinates(map, coordinates),
     getAdjacentTile: (coordinates, direction) => getAdjacentTile(map, coordinates, direction),
     getAdjacentNode: (coordinates, direction) => getAdjacentNode(map, coordinates, direction),
   }

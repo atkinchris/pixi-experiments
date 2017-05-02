@@ -1,24 +1,28 @@
-import { NONE, isOpposite } from '../utils/directions'
+import { NONE, LEFT, isOpposite } from '../utils/directions'
+import { mapToWorld } from '../utils/coordinates'
 
-function createHandler(map, initialPosition, playerHandler) {
+function createHandler(map, initialPosition) {
   let currentDestination = initialPosition
-  let currentDirection = NONE
+  let currentDirection = LEFT
 
-  const getNewDestination = (position, reachedDestination) => {
-    if (reachedDestination) {
-      const currentTile = map.getTile(position)
+  const getNewDestination = (position, reachedDestination, distance) => {
+    const nextPosition = {
+      x: position.x + (currentDirection.x * distance),
+      y: position.y + (currentDirection.y * distance),
+    }
+    const nextTile = map.getTileAtWorldCoordinates(nextPosition)
+    const nextTileWorld = mapToWorld(nextTile)
 
-      const nextNode = currentTile.nodes.find(
-        node => !isOpposite(currentDirection, node.direction),
-      )
+    console.log(reachedDestination)
 
-      if (nextNode) {
-        console.log('Moving to', nextNode)
-        currentDestination = nextNode
-        currentDirection = nextNode.direction
-      } else {
-        console.log('Impass')
-      }
+    if (
+      currentDestination.x !== nextTileWorld.x &&
+      currentDestination.y !== nextTileWorld.y &&
+      nextTile.passable
+    ) {
+      currentDestination = mapToWorld(nextTile)
+    } else {
+      currentDestination = nextPosition
     }
 
     return currentDestination

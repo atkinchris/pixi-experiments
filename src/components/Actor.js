@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import { mapToWorld, worldToMap } from '../utils/coordinates'
+import { mapToWorld } from '../utils/coordinates'
 import moveTo from '../utils/moveTo'
 
 const SPEED = 200
@@ -25,11 +25,11 @@ class Actor extends Phaser.Sprite {
   update() {
     const dt = this.game.time.physicsElapsed
 
-    const mapPosition = worldToMap({ x: this.posX, y: this.posY })
-    const destination = this.handler.getNewDestination(mapPosition, this.reached)
-    const distance = dt * SPEED
+    // const mapPosition = worldToMap({ x: this.posX, y: this.posY })
     const here = { x: this.posX, y: this.posY }
-    const newPosition = moveTo(here, mapToWorld(destination), distance)
+    const distance = dt * SPEED
+    const destination = this.handler.getNewDestination(here, this.reached, distance)
+    const newPosition = moveTo(here, destination, distance)
 
     this.reached = newPosition.reached
 
