@@ -11,3 +11,9 @@
 * Only use world coordinates in renderable components - map coordinates in all others.
 * `inputHandler` -> `stateUpdate` -> `render`
 * Have actor get destination on every/intermitant updates, and trust it. Allows for snap movement by player.
+
+1. Work out the next location, based on `dt` and direction.
+2. Find that tile with world coordinates on the map.
+3. If that tile is not equal to the current tile:
+  1. if that tile is passable, assign it as the current tile.
+  2. if that tile needs a decision in direction, set it as the destination.
