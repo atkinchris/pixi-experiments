@@ -14,8 +14,7 @@ function gameState(game) {
     drawMap(game, tileMap)
 
     const enemyStartPosition = { x: 8, y: 8 }
-    const enemyHander = createEnemyHandler(tileMap, enemyStartPosition)
-    enemy = new Actor(game, 'enemy', enemyStartPosition, enemyHander)
+    enemy = new Actor(game, 'enemy', enemyStartPosition, tileMap)
     game.add.existing(enemy)
   }
 

@@ -1,18 +1,20 @@
 import Phaser from 'phaser'
 
-import { mapToWorld } from '../utils/coordinates'
-import moveTo from '../utils/moveTo'
-
-const SPEED = 200
+import { mapToWorld, worldToMap } from '../utils/coordinates'
+import { LEFT, isOpposite } from '../utils/directions'
 
 class Actor extends Phaser.Sprite {
-  constructor(game, name, position, handler) {
+  constructor(game, name, position, map) {
     super(game, position.x, position.y, 'sprites', `${name}.png`)
 
-    this.handler = handler
+    this.map = map
     this.anchor.set(0.5, 0.5)
     this.reached = false
     this.updatePosition(mapToWorld(position))
+
+    this.direction = LEFT
+
+    this.currentTile = map.getTile(position)
   }
 
   updatePosition({ x, y }) {
@@ -23,17 +25,33 @@ class Actor extends Phaser.Sprite {
   }
 
   update() {
-    const dt = this.game.time.physicsElapsed
-
-    // const mapPosition = worldToMap({ x: this.posX, y: this.posY })
     const here = { x: this.posX, y: this.posY }
-    const distance = dt * SPEED
-    const destination = this.handler.getNewDestination(here, this.reached, distance)
-    const newPosition = moveTo(here, destination, distance)
+    const distance = 3
 
-    this.reached = newPosition.reached
+    const nextPosition = {
+      x: this.posX + (this.direction.x * distance),
+      y: this.posY + (this.direction.y * distance),
+    }
 
-    this.updatePosition(newPosition)
+    const leadingEdge = {
+      x: (this.posX + (this.direction.x * (this.width / 2))) + (this.direction.x * distance),
+      y: (this.posY + (this.direction.y * (this.height / 2))) + (this.direction.y * distance),
+    }
+
+    const nextTile = this.map.getTile(worldToMap(leadingEdge))
+
+    if (nextTile.passable) {
+      this.updatePosition(nextPosition)
+      this.currentTile = nextTile
+    } else {
+      this.updatePosition(mapToWorld(this.currentTile))
+
+      const possible = this.currentTile.adjacents.filter(
+        ({ passable, direction }) => passable && !isOpposite(direction, this.direction),
+      )
+
+      this.direction = possible[0].direction
+    }
   }
 }
 

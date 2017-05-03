@@ -1,6 +1,5 @@
 import { ALL } from '../directions'
 
-import { worldToMap } from '../coordinates'
 import arrayToMap from './arrayToMap'
 import mapData from './map.json'
 
@@ -14,12 +13,6 @@ function getTile(map, coordinates) {
   return map.find(t => t.x === x && t.y === y) || impassable(coordinates)
 }
 
-function getTileAtWorldCoordinates(map, worldCoordinates) {
-  const coordinates = worldToMap(worldCoordinates)
-
-  return getTile(map, coordinates)
-}
-
 function getAdjacentTile(map, coordinates, direction) {
   const x = coordinates.x + direction.x
   const y = coordinates.y + direction.y
@@ -27,31 +20,16 @@ function getAdjacentTile(map, coordinates, direction) {
   return getTile(map, { x, y })
 }
 
-function getAdjacentNode(map, coordinates, direction) {
-  let node
-  let next = impassable(coordinates)
-
-  do {
-    node = next
-    next = getAdjacentTile(map, node, direction)
-  } while (next.passable)
-
-  return node
-}
-
 function createTileMap(mapObjects = TEST_MAP) {
   const map = mapObjects.map(tile => ({
     ...tile,
-    adjacents: ALL.map(d => ({ ...getAdjacentTile(mapObjects, tile, d), direction: d })),
-    nodes: ALL.map(d => ({ ...getAdjacentNode(mapObjects, tile, d), direction: d })).filter(({ passable }) => passable),
+    adjacents: ALL.map(d => ({ ...getAdjacentTile(mapObjects, tile, d), direction: d })).filter(({ passable }) => passable),
   }))
 
   return {
     each: fn => map.map(fn),
     getTile: coordinates => getTile(map, coordinates),
-    getTileAtWorldCoordinates: coordinates => getTileAtWorldCoordinates(map, coordinates),
     getAdjacentTile: (coordinates, direction) => getAdjacentTile(map, coordinates, direction),
-    getAdjacentNode: (coordinates, direction) => getAdjacentNode(map, coordinates, direction),
   }
 }
 
