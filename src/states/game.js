@@ -1,5 +1,6 @@
 import buildMap from '../new/buildMap'
 import drawMap from '../new/drawMap'
+import Actor from '../new/actor'
 
 import mapData from '../utils/tileMap/map.json'
 
@@ -10,6 +11,9 @@ function gameState(game) {
 
     const tileMap = buildMap(mapData)
     drawMap(game, tileMap)
+
+    const enemy = new Actor(game, 'enemy', { x: 1, y: 1 }, tileMap)
+    game.add.existing(enemy)
   }
 
 
