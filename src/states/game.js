@@ -12,8 +12,11 @@ function gameState(game) {
     const tileMap = buildMap(mapData)
     drawMap(game, tileMap)
 
-    const enemy = new Actor(game, 'enemy', { x: 1, y: 1 }, tileMap)
+    const enemy = new Actor(game, 'enemy', { x: 1, y: 2 }, tileMap)
     game.add.existing(enemy)
+
+    const player = new Actor(game, 'player', { x: 1, y: 1 }, tileMap)
+    game.add.existing(player)
   }
 
 

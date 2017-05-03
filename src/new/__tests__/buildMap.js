@@ -1,4 +1,5 @@
 import buildMap from '../buildMap'
+import { RIGHT, DOWN } from '../../utils/directions'
 
 const mapData = [
   [0, 0, 0, 0, 0, 0, 0],
@@ -35,7 +36,7 @@ describe('tilemap', () => {
     it('contains the available exits from the tile', () => {
       const { getTile } = buildMap(mapData)
       const position = { x: 1, y: 1 }
-      const exits = ['RIGHT', 'DOWN']
+      const exits = [RIGHT, DOWN]
 
       expect(getTile(position)).toMatchObject({ exits })
     })

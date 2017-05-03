@@ -12,11 +12,14 @@ function buildMap(data) {
   })
 
   const map = tiles.map((tile) => {
-    const adjacents = ALL_DIRECTIONS.reduce((out, d) => ({
+    const adjacents = ALL_DIRECTIONS.reduce((out, direction) => ({
       ...out,
-      [d.id]: getTile({ x: tile.x + d.x, y: tile.y + d.y }, tiles),
+      [direction.id]: {
+        ...getTile({ x: tile.x + direction.x, y: tile.y + direction.y }, tiles),
+        direction,
+      },
     }), {})
-    const exits = Object.entries(adjacents).filter(([, t]) => t.passable).map(([key]) => key)
+    const exits = Object.values(adjacents).filter(a => a.passable).map(a => a.direction)
     const isNode = exits.length > 2
 
     return {
