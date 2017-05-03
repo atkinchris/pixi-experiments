@@ -29,6 +29,7 @@ function buildMap(data) {
 
   return {
     getTile: position => getTile(position, map),
+    getTiles: () => map,
   }
 }
 

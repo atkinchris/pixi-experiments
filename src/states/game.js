@@ -1,21 +1,15 @@
-import Actor from '../components/Actor'
-import drawMap from '../components/TileMap'
-import createEnemyHandler from '../handlers/debug'
-import createTileMap from '../utils/tileMap'
+import buildMap from '../new/buildMap'
+import drawMap from '../new/drawMap'
+
+import mapData from '../utils/tileMap/map.json'
 
 function gameState(game) {
-  let enemy
-
   function create() {
     // eslint-disable-next-line no-param-reassign
     game.time.advancedTiming = true
 
-    const tileMap = createTileMap()
+    const tileMap = buildMap(mapData)
     drawMap(game, tileMap)
-
-    const enemyStartPosition = { x: 8, y: 8 }
-    enemy = new Actor(game, 'enemy', enemyStartPosition, tileMap)
-    game.add.existing(enemy)
   }
 
 
