@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 
 import { mapToWorld, worldToMap } from '../utils/coordinates'
-import { LEFT, isOpposite } from '../utils/directions'
+import { NONE, isOpposite } from '../utils/directions'
 
 class Actor extends Phaser.Sprite {
   constructor(game, name, position, map) {
@@ -12,7 +12,7 @@ class Actor extends Phaser.Sprite {
     this.reached = false
     this.updatePosition(mapToWorld(position))
 
-    this.direction = LEFT
+    this.direction = NONE
 
     this.currentTile = map.getTile(position)
   }
@@ -40,7 +40,7 @@ class Actor extends Phaser.Sprite {
 
     const nextTile = this.map.getTile(worldToMap(leadingEdge))
 
-    if (nextTile.passable) {
+    if (nextTile.passable && this.direction !== NONE) {
       this.updatePosition(nextPosition)
       this.currentTile = nextTile
     } else {

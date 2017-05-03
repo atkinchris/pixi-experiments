@@ -21,9 +21,21 @@ function getAdjacentTile(map, coordinates, direction) {
 }
 
 function createTileMap(mapObjects = TEST_MAP) {
+  const buildAdjacents = (tile, map) => ALL.reduce((adjacents, direction) => ({
+    ...adjacents,
+    [direction.id]: getAdjacentTile(tile, direction)
+  }), {})
+
+  const buildExits = adjacents => Object.entries(adjacents).filter(([key, tile]) => tile.passable).map(([key]) => key)
+
   const map = mapObjects.map(tile => ({
     ...tile,
-    adjacents: ALL.map(d => ({ ...getAdjacentTile(mapObjects, tile, d), direction: d })).filter(({ passable }) => passable),
+    adjacents: {
+      LEFT: {},
+      RIGHT: {},
+      UP: {},
+      DOWN: {}
+    },ALL.map(d => ({ ...getAdjacentTile(mapObjects, tile, d), direction: d })).filter(({ passable }) => passable),
   }))
 
   return {

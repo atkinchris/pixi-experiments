@@ -1,8 +1,8 @@
-const NONE = { x: 0, y: 0 }
-const LEFT = { x: -1, y: 0 }
-const RIGHT = { x: 1, y: 0 }
-const UP = { x: 0, y: -1 }
-const DOWN = { x: 0, y: 1 }
+const NONE = { x: 0, y: 0, id: 'NONE' }
+const LEFT = { x: -1, y: 0, id: 'LEFT' }
+const RIGHT = { x: 1, y: 0, id: 'RIGHT' }
+const UP = { x: 0, y: -1, id: 'UP' }
+const DOWN = { x: 0, y: 1, id: 'DOWN' }
 
 LEFT.opposite = RIGHT
 RIGHT.opposite = LEFT
@@ -19,5 +19,6 @@ export {
   UP,
   DOWN,
   ALL,
+  ALL as ALL_DIRECTIONS,
   isOpposite,
 }
