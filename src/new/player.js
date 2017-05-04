@@ -50,20 +50,24 @@ class Actor extends Phaser.Sprite {
       newDirection !== direction &&
       this.currentTile.exits.includes(newDirection)
     ) {
+      console.log('turn')
       this.updatePosition(mapToWorld(this.currentTile))
       this.direction = newDirection
       this.currentTile = nextTile
     } else if (nextTile.passable && direction !== NONE) {
+      console.log('keep going')
       this.updatePosition(nextPosition)
+      // Don't change the current direction
+      this.currentTile = nextTile
+    } else if (this.currentTile.exits.includes(newDirection)) {
+      console.log('go')
+      this.updatePosition(mapToWorld(this.currentTile))
+      this.direction = newDirection
       this.currentTile = nextTile
     } else {
-      if (this.currentTile.exits.includes(newDirection)) {
-        this.direction = newDirection
-      } else {
-        this.direction = NONE
-      }
-
+      console.log('stop')
       this.updatePosition(mapToWorld(this.currentTile))
+      this.direction = NONE
     }
   }
 }
