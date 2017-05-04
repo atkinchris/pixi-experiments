@@ -31,7 +31,7 @@ class Actor extends Phaser.Sprite {
       this.direction = newDirection
     }
 
-    const { direction, speed, width, height, x, y, currentTile } = this
+    const { direction, speed, width, height, x, y } = this
 
     const nextPosition = {
       x: x + (direction.x * speed),
@@ -43,14 +43,27 @@ class Actor extends Phaser.Sprite {
     }
     const nextTile = this.map.getTile(worldToMap(leadingEdge))
 
-    if (nextTile.passable && direction !== NONE) {
-      this.currentTile = nextTile
-      this.updatePosition(nextPosition)
-    } else {
-      // Get another direction
-      this.direction = newDirection
+    // TODO: Can this if / else if / else be unwrapped?
 
-      this.updatePosition(mapToWorld(currentTile))
+    if (
+      nextTile !== this.currentTile &&
+      newDirection !== direction &&
+      this.currentTile.exits.includes(newDirection)
+    ) {
+      this.updatePosition(mapToWorld(this.currentTile))
+      this.direction = newDirection
+      this.currentTile = nextTile
+    } else if (nextTile.passable && direction !== NONE) {
+      this.updatePosition(nextPosition)
+      this.currentTile = nextTile
+    } else {
+      if (this.currentTile.exits.includes(newDirection)) {
+        this.direction = newDirection
+      } else {
+        this.direction = NONE
+      }
+
+      this.updatePosition(mapToWorld(this.currentTile))
     }
   }
 }
