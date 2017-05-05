@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 
-import { mapToWorld, worldToMap } from '../utils/coordinates'
-import { NONE, isOpposite } from '../utils/directions'
+import { NONE, isOpposite } from './directions'
+import { mapToWorld, worldToMap } from './coordinates'
 
 class Actor extends Phaser.Sprite {
   constructor(game, name, position, map) {
@@ -9,48 +9,40 @@ class Actor extends Phaser.Sprite {
 
     this.map = map
     this.anchor.set(0.5, 0.5)
-    this.reached = false
     this.updatePosition(mapToWorld(position))
 
-    this.direction = NONE
-
     this.currentTile = map.getTile(position)
+
+    this.speed = 3
+    this.direction = NONE
   }
 
   updatePosition({ x, y }) {
-    this.posX = x
-    this.posY = y
-    this.x = Math.round(this.posX)
-    this.y = Math.round(this.posY)
+    this.x = x
+    this.y = y
   }
 
   update() {
-    const here = { x: this.posX, y: this.posY }
-    const distance = 3
+    const { direction, speed, width, height, x, y, currentTile } = this
 
     const nextPosition = {
-      x: this.posX + (this.direction.x * distance),
-      y: this.posY + (this.direction.y * distance),
+      x: x + (direction.x * speed),
+      y: y + (direction.y * speed),
     }
-
     const leadingEdge = {
-      x: (this.posX + (this.direction.x * (this.width / 2))) + (this.direction.x * distance),
-      y: (this.posY + (this.direction.y * (this.height / 2))) + (this.direction.y * distance),
+      x: nextPosition.x + (direction.x * (width / 2)),
+      y: nextPosition.y + (direction.y * (height / 2)),
     }
-
     const nextTile = this.map.getTile(worldToMap(leadingEdge))
 
-    if (nextTile.passable && this.direction !== NONE) {
-      this.updatePosition(nextPosition)
+    if (nextTile.passable && direction !== NONE) {
       this.currentTile = nextTile
+      this.updatePosition(nextPosition)
     } else {
-      this.updatePosition(mapToWorld(this.currentTile))
+      // Get another direction
+      this.direction = currentTile.exits.find(e => !isOpposite(e, direction))
 
-      const possible = this.currentTile.adjacents.filter(
-        ({ passable, direction }) => passable && !isOpposite(direction, this.direction),
-      )
-
-      this.direction = possible[0].direction
+      this.updatePosition(mapToWorld(currentTile))
     }
   }
 }

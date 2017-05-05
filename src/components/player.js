@@ -1,8 +1,8 @@
 import Phaser from 'phaser'
 
-import setupInputHandler from '../utils/input'
-import { NONE, isOpposite } from '../utils/directions'
-import { mapToWorld, worldToMap } from '../utils/coordinates'
+import setupInputHandler from './input'
+import { NONE, isOpposite } from './directions'
+import { mapToWorld, worldToMap } from './coordinates'
 
 class Actor extends Phaser.Sprite {
   constructor(game, name, position, map) {

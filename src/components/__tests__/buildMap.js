@@ -1,5 +1,5 @@
 import buildMap from '../buildMap'
-import { RIGHT, DOWN } from '../../utils/directions'
+import { RIGHT, DOWN } from '../directions'
 
 const mapData = [
   [0, 0, 0, 0, 0, 0, 0],

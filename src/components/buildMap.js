@@ -1,4 +1,4 @@
-import { ALL_DIRECTIONS } from '../utils/directions'
+import { ALL_DIRECTIONS } from './directions'
 
 const getTile = ({ x, y }, tiles) => tiles.find(t => t.x === x && t.y === y) || {}
 

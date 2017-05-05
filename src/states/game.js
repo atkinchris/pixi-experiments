@@ -3,7 +3,7 @@ import drawMap from '../new/drawMap'
 import Actor from '../new/actor'
 import Player from '../new/player'
 
-import mapData from '../utils/tileMap/map.json'
+import mapData from '../map.json'
 
 function gameState(game) {
   function create() {
