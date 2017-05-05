@@ -1,7 +1,7 @@
-import buildMap from '../new/buildMap'
-import drawMap from '../new/drawMap'
-import Actor from '../new/actor'
-import Player from '../new/player'
+import buildMap from '../components/buildMap'
+import drawMap from '../components/drawMap'
+import Actor from '../components/Actor'
+import Player from '../components/player'
 
 import mapData from '../map.json'
 
