@@ -1,8 +1,8 @@
 import buildMap from '../utils/buildMap'
 import drawMap from '../utils/drawMap'
 import Actor from '../components/Actor'
-import enemyHandler from '../handlers/enemyHandler'
-import playerHandler from '../handlers/playerHandler'
+import createEnemyHandler from '../handlers/enemyHandler'
+import createPlayerHandler from '../handlers/playerHandler'
 
 import mapData from '../map.json'
 
@@ -11,13 +11,15 @@ function gameState(game) {
     // eslint-disable-next-line no-param-reassign
     game.time.advancedTiming = true
 
-    const tileMap = buildMap(mapData)
-    drawMap(game, tileMap)
+    const map = buildMap(mapData)
+    drawMap(game, map)
 
-    const enemy = new Actor(game, 'enemy', { x: 1, y: 2 }, tileMap, enemyHandler)
+    const enemyHandler = createEnemyHandler({ position: { x: 1, y: 2 }, map })
+    const enemy = new Actor(game, 'enemy', enemyHandler)
     game.add.existing(enemy)
 
-    const player = new Actor(game, 'player', { x: 1, y: 1 }, tileMap, playerHandler)
+    const playerHandler = createPlayerHandler({ position: { x: 1, y: 1 }, map })
+    const player = new Actor(game, 'player', playerHandler)
     game.add.existing(player)
   }
 

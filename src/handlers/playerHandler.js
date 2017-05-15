@@ -2,13 +2,13 @@ import setupInputHandler from '../utils/input'
 import { NONE, isOpposite } from '../utils/directions'
 import { mapToWorld, worldToMap } from '../utils/coordinates'
 
-function handler({ width, height, position, map }) {
+function handler({ width = 64, height = 64, position, map }) {
   const inputHandler = setupInputHandler()
   const speed = 3
   let direction = NONE
   let currentTile = map.getTile(position)
 
-  return ({ x, y }) => {
+  return ({ x = 0, y = 0 } = {}) => {
     const newDirection = inputHandler()
     if (isOpposite(newDirection, direction)) {
       direction = newDirection

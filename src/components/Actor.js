@@ -1,16 +1,12 @@
 import Phaser from 'phaser'
 
-import { mapToWorld } from '../utils/coordinates'
-
 class Actor extends Phaser.Sprite {
-  constructor(game, name, position, map, handler) {
-    super(game, position.x, position.y, 'sprites', `${name}.png`)
-
-    const { width, height } = this
+  constructor(game, name, handler) {
+    super(game, 0, 0, 'sprites', `${name}.png`)
 
     this.anchor.set(0.5, 0.5)
-    this.updatePosition(mapToWorld(position))
-    this.handler = handler({ width, height, position, map })
+    this.handler = handler
+    this.updatePosition(this.handler())
   }
 
   updatePosition({ x, y }) {
