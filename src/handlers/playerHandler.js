@@ -1,6 +1,6 @@
-import setupInputHandler from '../input'
-import { NONE, isOpposite } from '../directions'
-import { mapToWorld, worldToMap } from '../coordinates'
+import setupInputHandler from '../utils/input'
+import { NONE, isOpposite } from '../utils/directions'
+import { mapToWorld, worldToMap } from '../utils/coordinates'
 
 function handler({ width, height, position, map }) {
   const inputHandler = setupInputHandler()

@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import { mapToWorld } from '../coordinates'
+import { mapToWorld } from '../utils/coordinates'
 
 class Actor extends Phaser.Sprite {
   constructor(game, name, position, map, handler) {

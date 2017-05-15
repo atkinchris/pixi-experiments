@@ -1,5 +1,5 @@
-import { NONE, isOpposite } from '../directions'
-import { mapToWorld, worldToMap } from '../coordinates'
+import { NONE, isOpposite } from '../utils/directions'
+import { mapToWorld, worldToMap } from '../utils/coordinates'
 
 function handler({ width, height, position, map }) {
   const speed = 3

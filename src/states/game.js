@@ -1,8 +1,8 @@
-import buildMap from '../components/buildMap'
-import drawMap from '../components/drawMap'
-import Actor from '../components/handlers/Actor'
-import enemyHandler from '../components/handlers/enemyHandler'
-import playerHandler from '../components/handlers/playerHandler'
+import buildMap from '../utils/buildMap'
+import drawMap from '../utils/drawMap'
+import Actor from '../components/Actor'
+import enemyHandler from '../handlers/enemyHandler'
+import playerHandler from '../handlers/playerHandler'
 
 import mapData from '../map.json'
 
