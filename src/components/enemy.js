@@ -3,28 +3,12 @@ import Phaser from 'phaser'
 import { NONE, isOpposite } from './directions'
 import { mapToWorld, worldToMap } from './coordinates'
 
-class Enemy extends Phaser.Sprite {
-  constructor(game, name, position, map) {
-    super(game, position.x, position.y, 'sprites', `${name}.png`)
+function handler({ width, height, position, map }) {
+  const speed = 3
+  let direction = NONE
+  let currentTile = map.getTile(position)
 
-    this.map = map
-    this.anchor.set(0.5, 0.5)
-    this.updatePosition(mapToWorld(position))
-
-    this.currentTile = map.getTile(position)
-
-    this.speed = 3
-    this.direction = NONE
-  }
-
-  updatePosition({ x, y }) {
-    this.x = x
-    this.y = y
-  }
-
-  update() {
-    const { direction, speed, width, height, x, y, currentTile } = this
-
+  return ({ x, y }) => {
     const nextPosition = {
       x: x + (direction.x * speed),
       y: y + (direction.y * speed),
@@ -36,14 +20,36 @@ class Enemy extends Phaser.Sprite {
     const nextTile = this.map.getTile(worldToMap(leadingEdge))
 
     if (nextTile.passable && direction !== NONE) {
-      this.currentTile = nextTile
-      this.updatePosition(nextPosition)
-    } else {
-      // Get another direction
-      this.direction = currentTile.exits.find(e => !isOpposite(e, direction))
-
-      this.updatePosition(mapToWorld(currentTile))
+      currentTile = nextTile
+      return nextPosition
     }
+
+    direction = currentTile.exits.find(e => !isOpposite(e, direction))
+    return mapToWorld(currentTile)
+  }
+}
+
+class Enemy extends Phaser.Sprite {
+  constructor(game, name, position, map) {
+    super(game, position.x, position.y, 'sprites', `${name}.png`)
+
+    const { width, height } = this
+
+    this.anchor.set(0.5, 0.5)
+    this.updatePosition(mapToWorld(position))
+    this.handler = handler({ width, height, position, map })
+  }
+
+  updatePosition({ x, y }) {
+    this.x = x
+    this.y = y
+  }
+
+  update() {
+    const { x, y } = this
+    const newPosition = this.handler({ x, y })
+
+    this.updatePosition(newPosition)
   }
 }
 
