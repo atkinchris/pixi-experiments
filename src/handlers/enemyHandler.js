@@ -1,25 +1,23 @@
-import { ALL_DIRECTIONS } from '../utils/directions'
+import { ALL_DIRECTIONS, NONE, isOpposite } from '../utils/directions'
+
+function getDistanceSquared(a, b) {
+  const x = a.x - b.x
+  const y = a.y - b.y
+  return (x * x) + (y * y)
+}
 
 function handler(player) {
-  const relative = (position, rel) => {
-    if (position < rel) {
-      return 1
-    }
+  return ({ x, y, currentTile: { exits }, direction = NONE }) => {
+    const target = { x: player.x, y: player.y }
+    const byDistance = ALL_DIRECTIONS
+      .filter(d => !isOpposite(d, direction))
+      .map(d => ({
+        distance: getDistanceSquared({ x: x + d.x, y: y + d.y }, target),
+        direction: d,
+      }))
+      .sort((a, b) => a.distance > b.distance)
 
-    if (position > rel) {
-      return -1
-    }
-
-    return 0
-  }
-
-  return ({ x, y }) => {
-    const direction = {
-      x: relative(x, player.x),
-      y: relative(y, player.y),
-    }
-
-    return ALL_DIRECTIONS.find(({ x, y }) => x === direction.x && y === direction.y)
+    return byDistance[0].direction
   }
 }
 
