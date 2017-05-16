@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { NONE } from '../utils/directions'
+import { NONE, isOpposite } from '../utils/directions'
 import { mapToWorld, worldToMap } from '../utils/coordinates'
 
 class Actor extends Phaser.Sprite {
@@ -22,12 +22,15 @@ class Actor extends Phaser.Sprite {
   }
 
   update() {
-    const { x, y } = this
     const newDirection = this.handler(this)
 
+    if (newDirection && this.direction && isOpposite(newDirection, this.direction)) {
+      this.direction = newDirection
+    }
+
     let nextPosition = {
-      x: x + (this.direction.x * this.speed),
-      y: y + (this.direction.y * this.speed),
+      x: this.x + (this.direction.x * this.speed),
+      y: this.y + (this.direction.y * this.speed),
     }
     const leadingEdge = {
       x: nextPosition.x + (this.direction.x * (this.width / 2)),
