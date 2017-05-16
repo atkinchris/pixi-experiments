@@ -1,29 +1,25 @@
-import { NONE, isOpposite } from '../utils/directions'
-import { mapToWorld, worldToMap } from '../utils/coordinates'
+import { ALL_DIRECTIONS } from '../utils/directions'
 
-function handler({ width = 64, height = 64, position, map }) {
-  const speed = 3
-  let direction = NONE
-  let currentTile = map.getTile(position)
-
-  return ({ x = 0, y = 0 } = {}) => {
-    const nextPosition = {
-      x: x + (direction.x * speed),
-      y: y + (direction.y * speed),
-    }
-    const leadingEdge = {
-      x: nextPosition.x + (direction.x * (width / 2)),
-      y: nextPosition.y + (direction.y * (height / 2)),
-    }
-    const nextTile = map.getTile(worldToMap(leadingEdge))
-
-    if (nextTile.passable && direction !== NONE) {
-      currentTile = nextTile
-      return nextPosition
+function handler(player) {
+  const relative = (position, rel) => {
+    if (position < rel) {
+      return 1
     }
 
-    direction = currentTile.exits.find(e => !isOpposite(e, direction))
-    return mapToWorld(currentTile)
+    if (position > rel) {
+      return -1
+    }
+
+    return 0
+  }
+
+  return ({ x, y }) => {
+    const direction = {
+      x: relative(x, player.x),
+      y: relative(y, player.y),
+    }
+
+    return ALL_DIRECTIONS.find(({ x, y }) => x === direction.x && y === direction.y)
   }
 }
 

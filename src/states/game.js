@@ -14,13 +14,13 @@ function gameState(game) {
     const map = buildMap(mapData)
     drawMap(game, map)
 
-    const enemyHandler = createEnemyHandler({ position: { x: 1, y: 2 }, map })
-    const enemy = new Actor(game, 'enemy', enemyHandler)
-    game.add.existing(enemy)
-
-    const playerHandler = createPlayerHandler({ position: { x: 1, y: 1 }, map })
-    const player = new Actor(game, 'player', playerHandler)
+    const playerHandler = createPlayerHandler()
+    const player = new Actor(game, 'player', playerHandler, map, { x: 1, y: 1 })
     game.add.existing(player)
+
+    const enemyHandler = createEnemyHandler(player)
+    const enemy = new Actor(game, 'enemy', enemyHandler, map, { x: 1, y: 2 })
+    game.add.existing(enemy)
   }
 
 
