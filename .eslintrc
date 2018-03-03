@@ -1,17 +1,12 @@
 {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "jest": true
   },
   "extends": "airbnb-base",
   "rules": {
-    "semi": ["error", "never"]
-  },
-  "settings": {
-    "import/core-modules": [
-      "phaser",
-      "pixi",
-      "p2"
-    ],
+    "semi": ["error", "never"],
+    "object-curly-newline": "off"
   }
 }

@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import { NONE, isOpposite } from '../utils/directions'
 import { mapToWorld, worldToMap } from '../utils/coordinates'
 
-class Actor extends Phaser.Sprite {
+class Actor extends Phaser.GameObjects.Sprite {
   constructor(game, name, handler, map, initialPosition) {
     super(game, 0, 0, 'sprites', `${name}.png`)
 
